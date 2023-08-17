@@ -1,12 +1,11 @@
 import Container from '@mui/material/Container';
 import React from 'react';
-import MovieList from './Component/MovieList';
-
+import VideoList from './Component/VideoList';
 
 function App() {
   return (
-    <Container maxWidth="lg" disableGutters={true} sx={{backgroundColor: "#D9D9D9"}}>
-      <MovieList></MovieList>
+    <Container maxWidth="lg" disableGutters={true} sx={{backgroundColor: "#1F1F1F"}}>
+      <VideoList></VideoList>
     </Container>
   );
 }
