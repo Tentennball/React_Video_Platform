@@ -1,17 +1,15 @@
 import {
   Grid, 
-  Container,
-  Box,
-  Modal,
 } from '@mui/material';
 import { useState } from 'react';
 import VideoInfoCard from './VideoInfoCard';
+import VideoModal from './VideoModal';
 
 const VideoCard = () => {
 
   const [isMouseOn, setIsMouseOn] = useState(false)
-  
   const [isOpen, setIsOpen] = useState(false);
+
   const handleOpen = () => {
     setIsOpen(true)
   };
@@ -31,6 +29,7 @@ const VideoCard = () => {
       minWidth: "250px",
       maxWidth: "292px",
       height: "180px",
+      /* Image Path */
       backgroundImage: "url(/img/An.jpg)",
       backgroundSize: "cover",
       margin: "5px",
@@ -40,46 +39,13 @@ const VideoCard = () => {
       onMouseEnter={() => {setIsMouseOn(true)}}
       onMouseLeave={() => {setIsMouseOn(false)}}
     >
+
       {/* Vedeo Info Card */}
       {isMouseOn && <VideoInfoCard handleOpen={handleOpen}/>}
 
       {/* Vedeo Modal */}
-      <Modal
-        open={isOpen}
-        onClose={handleClose}
-      >
-        <Container maxWidth="md" 
-          disableGutters={true} 
-          sx={{   
-            width: "70vw",
-            height: "100vh", 
-            outline: "none", 
-            display: "flex", 
-            alignItems: "center"
-          }}>
-          <Box sx={{
-            width: "100%", 
-            flexDirection: "column", 
-            overflow: "hidden", 
-            borderRadius: "10px"
-          }}>
-            <Box sx={{ 
-              width: "100%", 
-              height: "65vh", 
-              backgroundColor: "white", 
-            }}>
-              Video
-            </Box>
-            <Box sx={{ 
-              width: "100%", 
-              height: "100px", 
-              backgroundColor: "#585858", 
-            }}>
-              Title
-            </Box>
-          </Box>
-        </Container>
-      </Modal>
+      {isOpen && <VideoModal handleClose={handleClose}/>}
+
     </Grid>
   );
 }
