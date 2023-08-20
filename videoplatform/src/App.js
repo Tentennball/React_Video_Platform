@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
     <Navbar/>
-    <Container maxWidth="lg" disableGutters={true} sx={{backgroundColor: "#1F1F1F"}}>
+    <Container maxWidth="lg"  sx={{backgroundColor: "#1F1F1F"}}>
       <VideoList></VideoList>
     </Container>
     </div>
