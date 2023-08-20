@@ -3,11 +3,6 @@ import {
   Container,
   Box,
   Modal,
-  Fade,
-  Typography,
-  Card,
-  CardMedia,
-  CardContent
 } from '@mui/material';
 import { useState } from 'react';
 import VideoInfoCard from './VideoInfoCard';
