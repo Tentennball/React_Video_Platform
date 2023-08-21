@@ -8,13 +8,18 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import VideoCard from './VideoCard';
+import { border, borderColor } from '@mui/system';
 
 const VideoList = () => {
 
   const [sortOption, setSortOption] = useState('');
 
-  const handleChange = (event) => {
-    setSortOption(event.target.value);
+  useState(() => {
+    setSortOption("Recently")
+  }, [])
+
+  const handleChange = (e) => {
+    setSortOption(e.target.value);
   };
 
   return (
@@ -31,18 +36,31 @@ const VideoList = () => {
         <Typography variant="h5" sx={{color: "#FFFFFF"}}>
           Video List
         </Typography>
-        <FormControl sx={{ m: 1, minWidth: 120,}} size="small">
-          <InputLabel id="demo-select-small-label" sx={{color: "#FFFFFF"}}>Sort</InputLabel>
+        <FormControl size="small" color='white' sx={{
+            minWidth: 120, 
+            "& > div:hover > fieldset": {borderColor: "#FFFFFF !important"}
+        }}>
+          <InputLabel id="sort-option-label" sx={{color: "#FFFFFF"}}>Sort</InputLabel>
           <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
+            labelId="sort-option-label"
+            id="sort-option"
             value={sortOption}
             label="Sort"
             onChange={handleChange}
+            sx={{
+              color: "#FFFFFF",
+              "& svg": {
+                color: "#FFFFFF"
+              },
+              "& fieldset": {
+                borderWidth: "1px",
+                borderColor: "#B0B0B0",
+              },
+            }}
           >
+            <MenuItem value={"Recently"}>Recently</MenuItem>
             <MenuItem value={"Like"}>Like</MenuItem>
             <MenuItem value={"Most View"}>Most View</MenuItem>
-            <MenuItem value={"Recently"}>Recently</MenuItem>
           </Select>
         </FormControl>
       </Box>
