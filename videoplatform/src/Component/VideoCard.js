@@ -27,8 +27,8 @@ const VideoCard = () => {
       justifyContent: "center",
       alignItems: "center",
       minWidth: "250px",
-      maxWidth: "292px",
-      height: "180px",
+      maxWidth: "300px",
+      aspectRatio: "16 / 9",
       /* Image Path */
       backgroundImage: "url(/img/An.jpg)",
       backgroundSize: "cover",
