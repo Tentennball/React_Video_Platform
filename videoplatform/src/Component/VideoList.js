@@ -75,6 +75,23 @@ const VideoList = () => {
           <VideoCard></VideoCard>
           <VideoCard></VideoCard>
           <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          <VideoCard></VideoCard>
+          
         </Grid>
     </Box>
   );
