@@ -4,17 +4,13 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-
 import { storage } from "./firebase";
 
 
 function VideoTest() {
-
-
   const handleVideoUpload = async(e) =>{
-
-    const file = e.target.files[0]
-    console.log(e)
+    const file = e.target.files[0];
+    console.log(e);
 
     const storageRef = ref(storage, `Video/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);

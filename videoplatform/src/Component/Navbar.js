@@ -74,22 +74,23 @@ const Navbar = () => {
                 ))}
               </Menu>
             </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "inherit",
-                    textTransform: "none", // 대문자 변경을 수정
-                    display: "block",
-                    fontSize: '18px'
-                  }}
-                >
-                </Button>
-              ))}
-            </Box>
+              <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                {pages.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "inherit",
+                      textTransform: "none", // 대문자 변경을 수정
+                      display: "block",
+                      fontSize: '18px'
+                    }}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </Box>
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
