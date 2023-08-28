@@ -22,5 +22,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# for test file
 *.mp4
+
+# .env file
+.env
 
