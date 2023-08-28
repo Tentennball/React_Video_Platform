@@ -6,9 +6,11 @@ import {
   FormControl,
   Select,
   Grid,
+  Button,
 } from '@mui/material';
 import { useState } from 'react';
 import VideoCard from "./VideoCard"
+import VideoUploadModal from './VidoeUploadModal';
 
 const VideoList = () => {
 
@@ -21,6 +23,18 @@ const VideoList = () => {
   const handleChange = (e) => {
     setSortOption(e.target.value);
   };
+
+  // Upload Modal Test Code
+  const [isOpen, setIsOpen] = useState(false)
+  const handleOpen = () => {
+    setIsOpen(true)
+  };
+  const handleClose = () => {
+    setIsOpen(false)
+  };
+
+
+
 
   return (
     <Box sx={{paddingBottom: "100px"}}>
@@ -36,6 +50,17 @@ const VideoList = () => {
         <Typography variant="h5" sx={{color: "#FFFFFF"}}>
           Video List
         </Typography>
+
+        {/* Upload Test Code */}
+        <Button onClick={handleOpen}>
+          Upload
+        </Button>
+
+
+        <VideoUploadModal isOpen={isOpen} handleClose={handleClose}></VideoUploadModal>
+
+
+
         <FormControl size="small" color='white' sx={{
             minWidth: 120, 
             "& > div:hover > fieldset": {borderColor: "#FFFFFF !important"}
