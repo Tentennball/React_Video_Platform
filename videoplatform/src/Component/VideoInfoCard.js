@@ -11,10 +11,6 @@ import { useEffect } from 'react';
 
 const VideoInfoCard = ({handleOpen}) => {
 
-  useEffect(() => {
-    console.log("Info Card")
-  }, [])
-
   return (
     <Box style={{position: "absolute", zIndex: 1,}}>
 
