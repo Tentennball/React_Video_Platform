@@ -16,7 +16,7 @@ import {
   Grid,
 } from "@mui/material";
 import ElevationScroll from "./ElevationScroll";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, collection, query, getDocs } from "firebase/firestore";
 import { store } from "../firebase";
 
 const pages = ["Upload Video"];
@@ -42,6 +42,7 @@ const Navbar = () => {
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("tlqkf");
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -53,17 +54,28 @@ const Navbar = () => {
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    const docEmailRef = doc(store, "Users", email);
-    const docPwdRef = doc(store, "Users", password);
-    const dbEmail = docEmailRef._key.path.segments[1];
-    const dbPwd = docPwdRef._key.path.segments[1];
-    console.log(email);
-    if (dbEmail === email && dbPwd === password) {;
-      setIsLoggedIn(true);
-      handleLoginClose();
-    } else {
+    const q = query(collection(store, "Users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      if(email!==doc.data().email){
+        return;
+      }
+      else{
+        if(password===doc.data().password){
+          setIsLoggedIn(true);
+          handleLoginClose();
+          setUserName(doc.data().name);
+          return;
+        }
+        else{
+          alert('일치하는 로그인 정보가 없습니다.');
+          return;
+        }
+      }
+    });
+    // } else {
       
-    }
+    // }
   };
 
   const handleSignUpSubmit = async (event) => {
@@ -149,14 +161,15 @@ const Navbar = () => {
             </Box>
             {isLoggedIn ? (
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton sx={{ p: 0 }}>
+                <Tooltip>
+                  <div>
+                  <IconButton sx={{ p: 0, pr: "5px"}}>
                     <Avatar
                       alt="Remy Sharp"
                       src="/static/images/avatar/2.jpg"
                     />
                   </IconButton>
-                  Name
+                    {userName}
                   <Button
                     sx={{
                       color: "inherit",
@@ -176,6 +189,7 @@ const Navbar = () => {
                   >
                     Logout
                   </Button>
+                  </div>
                 </Tooltip>
               </Box>
             ) : (
