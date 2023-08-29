@@ -1,9 +1,21 @@
-import { store } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
-
+import { storage, store } from "../firebase";
+import { doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, query, where } from "firebase/firestore";
 
 
 export const uploadVideoData = async(VideoData) => {
   await setDoc(doc(store, "VideoList", VideoData.id), VideoData)
     .catch((e) => {console.log(e)})
+}
+
+
+export const getVideoList = async() => {
+  const videoListQuery = query(collection(store, "VideoList"))
+  const snapShot = await getDocs(videoListQuery)
+  const videoList = []
+  snapShot.forEach((doc) => {
+    videoList.push(doc.data())
+  })
+  console.log(videoList)
+  return videoList
 }

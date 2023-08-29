@@ -8,17 +8,14 @@ import {
   Grid,
   Button,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VideoCard from "./VideoCard"
 import VideoUploadModal from './VidoeUploadModal';
+import { getVideoList } from '../API/VideoAPI';
 
 const VideoList = () => {
-
+  const [videoList, setVideoList] = useState([])
   const [sortOption, setSortOption] = useState('');
-
-  useState(() => {
-    setSortOption("Recently")
-  }, [])
 
   const handleChange = (e) => {
     setSortOption(e.target.value);
@@ -33,7 +30,15 @@ const VideoList = () => {
     setIsOpen(false)
   };
 
-
+  useEffect(() => {
+    setSortOption("Recently")
+    const fetchVideoList = async() => {
+      const list = await getVideoList()
+      return list
+    }
+    const list = fetchVideoList()
+    console.log(list.)
+  }, [])
 
 
   return (
