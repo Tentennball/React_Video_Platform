@@ -9,6 +9,9 @@ const theme = createTheme({
     white: {
       main: "#ffffff",
     },
+    darkGray: {
+      main: "#1F1F1F"
+    }
   },
 });
 
