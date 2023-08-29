@@ -40,10 +40,10 @@ const VideoCard = (props) => {
       onMouseLeave={() => {setIsMouseOn(false)}}
     >
 
-      {/* Vedeo Info Card */}
+      {/* Video Info Card */}
       {isMouseOn && <VideoInfoCard handleOpen={handleOpen} videoData={props.videoData}/>}
 
-      {/* Vedeo Modal */}
+      {/* Video Modal */}
       {isOpen && <VideoModal handleClose={handleClose} videoData={props.videoData}/>}
 
     </Grid>
