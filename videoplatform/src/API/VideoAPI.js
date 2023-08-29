@@ -9,13 +9,12 @@ export const uploadVideoData = async(VideoData) => {
 }
 
 
-export const getVideoList = async() => {
+export const getVideoList = async(setVideoList) => {
+  const videoList = []
   const videoListQuery = query(collection(store, "VideoList"))
   const snapShot = await getDocs(videoListQuery)
-  const videoList = []
   snapShot.forEach((doc) => {
     videoList.push(doc.data())
   })
-  console.log(videoList)
-  return videoList
+  setVideoList(videoList)
 }

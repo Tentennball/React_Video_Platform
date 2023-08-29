@@ -1,14 +1,18 @@
 import {
   Grid, 
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VideoInfoCard from './VideoInfoCard';
 import VideoModal from './VideoModal';
 
-const VideoCard = () => {
-
+const VideoCard = (props) => {
+  const [videoData, setVideoData] = useState(props.videoData)
   const [isMouseOn, setIsMouseOn] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(()=>{
+    console.log(videoData)
+  }, [])
 
   const handleOpen = () => {
     setIsOpen(true)
@@ -30,7 +34,7 @@ const VideoCard = () => {
       maxWidth: "300px",
       aspectRatio: "16 / 9",
       /* Image Path */
-      backgroundImage: "url(/img/An.jpg)",
+      backgroundImage: `"url(/img/An.jpg)"`,
       backgroundSize: "cover",
       margin: "5px",
       padding: "0px",

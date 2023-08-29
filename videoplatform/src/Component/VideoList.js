@@ -32,12 +32,7 @@ const VideoList = () => {
 
   useEffect(() => {
     setSortOption("Recently")
-    const fetchVideoList = async() => {
-      const list = await getVideoList()
-      return list
-    }
-    const list = fetchVideoList()
-    console.log(list.)
+    getVideoList(setVideoList)
   }, [])
 
 
@@ -98,30 +93,9 @@ const VideoList = () => {
       {/* Movie Cards */}
         <Grid container spacing={1} sx={{position: "relative", justifyContent: "center"}}>
           <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          <VideoCard></VideoCard>
-          
+            {videoList.map((videoData) => {
+              return <VideoCard key={videoData.id} videoData={videoData}></VideoCard>
+            })}
         </Grid>
     </Box>
   );
