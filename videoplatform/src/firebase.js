@@ -15,5 +15,5 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
-export const store = getFirestore()
-export const storage = getStorage()
+export const store = getFirestore();
+export const storage = getStorage();
