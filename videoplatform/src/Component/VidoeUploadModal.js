@@ -4,19 +4,18 @@ import {
   Modal,
   Typography,
   Button,
-  TextField,
   Input,
-  Alert
 } from '@mui/material';
 import { useState } from 'react';
 import { FileUpload } from '../API/FileUploadAPI';
 import { uploadVideoData } from "../API/VideoAPI"
 
 
-const VideoUploadModal = ({ isOpen, handleClose }) => {
+const VideoUploadModal = (props) => {
   const [videoFile, setVideoFile] = useState(null)
   const [thumbnailFile, setThumbnailFile] = useState(null)
   const [title, setTitle] = useState(null)
+  const [isUploading, setIsUploading] = useState(false)
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value)
@@ -30,28 +29,42 @@ const VideoUploadModal = ({ isOpen, handleClose }) => {
     setThumbnailFile(e.target.files[0])
   }
 
-  const handleSubmit = async(e) => {
-    e.preventDefault()
-    //const videoUrl = await FileUpload("Video", videoFile)
-    const thumbnailUrl = await FileUpload("Thumbnail", thumbnailFile)
+  const handleClose = () => {
+    if(!isUploading){
+      props.handleClose()
+    }
+  }
 
+  const handleUpload = async(e) => {
+    e.preventDefault()
+
+    setIsUploading(true)
+
+    const timeStamp = new Date().getTime().toString()
+    const videoUrl = await FileUpload("Video", videoFile, timeStamp)
+    const thumbnailUrl = await FileUpload("Thumbnail", thumbnailFile, timeStamp)
+      .catch((e) => (console.log(e)))
 
     const VideoData = {
-      id: new Date().getTime().toString(),
+      id: timeStamp,
       title: title,
-      //videoUrl: videoUrl,
+      videoUrl: videoUrl,
       thumbnailUrl: thumbnailUrl,
       uploder: "test_Uploader",
       like: 0,
       watch: 0
     }
     console.log(VideoData)
-    //uploadVideoData(VideoData)
+    uploadVideoData(VideoData)
+
+    setIsUploading(false)
+    alert("Upload Finish")
+    props.handleClose()
   }
 
   return (
     <Modal
-      open={isOpen}
+      open={props.isOpen}
       onClose={handleClose}
     >
       <Container maxWidth="md"
@@ -65,12 +78,12 @@ const VideoUploadModal = ({ isOpen, handleClose }) => {
         }}>
         <Box sx={{
           width: "100%",
-          height: "70vh",
+          //height: "70vh",
           backgroundColor: "#585858",
           flexDirection: "column",
           overflow: "hidden",
           borderRadius: "10px",
-          padding: "40px 20px",
+          padding: "20px",
         }}>
 
           <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
@@ -88,12 +101,12 @@ const VideoUploadModal = ({ isOpen, handleClose }) => {
               }}
             />
 
-            {/* <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
+            <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
               Video File
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", overflow: "hidden", marginBottom: "20px" }}>
               <Button variant="contained" color='darkGray' sx={{ padding: "0px", }}>
-                <label htmlFor="video_upload_input" style={{ padding: "5px 25px" }}>
+                <label htmlFor="video_upload_input" style={{minWidth: "200px", padding: "5px 0px" }}>
                   <Typography variant="button">Video Select</Typography>
                 </label>
                 <input id='video_upload_input' name="Video" type="file" accept="video/mp4" onChange={handleVideoFileChange} style={{ display: "none" }} />
@@ -101,14 +114,14 @@ const VideoUploadModal = ({ isOpen, handleClose }) => {
               <Typography gutterBottom variant="subtitle1" sx={{ margin: "0px 0px 0px 10px" }}>
                 {videoFile ? videoFile.name : "Please Select File..."}
               </Typography>
-            </Box> */}
+            </Box>
 
             <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
               Thumbnail File
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", overflow: "hidden", marginBottom: "20px" }}>
               <Button variant="contained" color='darkGray' sx={{ padding: "0px", }}>
-                <label htmlFor="thumbnail_upload_input" style={{ padding: "5px 25px" }}>
+                <label htmlFor="thumbnail_upload_input" style={{ minWidth: "200px", padding: "5px 0px" }}>
                   <Typography variant="button">Thumbnail Select</Typography>
                 </label>
                 <input id='thumbnail_upload_input' name="Thumbnail" type="file" accept="image/jpg, image/png" onChange={handleThumbnailChange} style={{ display: "none" }} />
@@ -118,7 +131,17 @@ const VideoUploadModal = ({ isOpen, handleClose }) => {
               </Typography>
             </Box>
 
-            <Button onClick={handleSubmit}>Upload</Button>
+
+            <Button 
+              onClick={handleUpload} 
+              variant="contained" 
+              color='darkGray' 
+              fullWidth
+              disabled={!(title && thumbnailFile && videoFile && !isUploading)}
+              sx={{ padding: "5px 0px", 
+            }}>
+              Upload
+            </Button>
 
           </Box>
         </Box>
