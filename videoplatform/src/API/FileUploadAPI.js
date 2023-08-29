@@ -1,8 +1,8 @@
 import { ref, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
 import { storage } from "../firebase";
 
-export const FileUpload = (type, file) => {
-  const storageRef = ref(storage, `${type}/${file.name}`);
+export const FileUpload = (type, file, timeStamp) => {
+  const storageRef = ref(storage, `${type}/${timeStamp}`);
   const uploadTask = uploadBytesResumable(storageRef, file)
 
   return new Promise((resolve, reject) => {
@@ -19,10 +19,12 @@ export const FileUpload = (type, file) => {
           case 'running':
             console.log('Upload is running');
             break;
+          default:
+            break;
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
+        throw error
       },
       async () => {
         const imgURL = await getDownloadURL(uploadTask.snapshot.ref);

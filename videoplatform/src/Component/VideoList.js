@@ -57,7 +57,7 @@ const VideoList = () => {
         </Button>
 
 
-        <VideoUploadModal isOpen={isOpen} handleClose={handleClose}></VideoUploadModal>
+        {isOpen && <VideoUploadModal isOpen={isOpen} handleClose={handleClose}></VideoUploadModal>}
 
 
 
