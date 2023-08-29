@@ -18,7 +18,7 @@ import {
 import ElevationScroll from "./ElevationScroll";
 import { doc, setDoc, collection, query, getDocs } from "firebase/firestore";
 import { store } from "../firebase";
-import {useSelector, dispatch } from 'react-redux';
+import {useSelector, useDispatch } from 'react-redux';
 const pages = ["Upload Video"];
 const modalStyle = {
   position: "absolute",
@@ -43,6 +43,7 @@ const Navbar = () => {
   const handleSignUpClose = () => setSignUpOpen(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userName = useSelector(state=>state.userName);
+  const dispatch = useDispatch();
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
