@@ -1,5 +1,5 @@
 import { store } from "../firebase";
-import { doc, collection, setDoc, getDocs, deleteDoc, updateDoc, getDoc} from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 
 

@@ -7,7 +7,6 @@ import {
   CardContent,
   Avatar
 } from '@mui/material';
-import { useEffect } from 'react';
 
 const VideoInfoCard = ({handleOpen}) => {
 
