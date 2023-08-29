@@ -11,7 +11,7 @@ import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 
 import ReactPlayer from 'react-player'
 
-const VideoModal = ({ handleClose }) => {
+const VideoModal = ({ handleClose, videoData }) => {
   return (
     <Modal
       open={true}
@@ -41,8 +41,7 @@ const VideoModal = ({ handleClose }) => {
             backgroundColor: "#000000",
           }}>
             <ReactPlayer
-              url={'https://firebasestorage.googleapis.com/v0/b/todoapp-3a3c7.appspot.com/o/Video%2FIVE.mp4?alt=media&token=89ee5627-9381-41ed-95e9-d15164ca3cfe'}    // 플레이어 url
-              //url={`/img/IVE.mp4`}
+              url={videoData.videoUrl}
               volume={0.5}
               width='100%'
               height='100%'
@@ -77,23 +76,23 @@ const VideoModal = ({ handleClose }) => {
 
               {/* Title */}
               <Typography variant="h6">
-                This is Test Title
+                {videoData.title}
               </Typography>
 
               <Box sx={{display: "flex", justifyContent: "space-between", flexWrap: "wrap",}}>
 
                 {/* Uploader Name */}
                 <Typography variant="subtitle1">
-                  Uploader Name
+                  {videoData.uploader}
                 </Typography>
 
                 {/* Watch & Like */}
                 <Box sx={{display: "flex", opacity: 0.75}}>
                   <Typography variant="subtitle1" sx={{ marginRight: "20px" }}>
-                    Watch : {1234}
+                    Watch : {videoData.watch}
                   </Typography>
                   <Typography variant="subtitle1">
-                    Like : {1234}
+                    Like : {videoData.like}
                   </Typography>
                 </Box>
               </Box>

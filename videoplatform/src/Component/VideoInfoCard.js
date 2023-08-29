@@ -8,7 +8,7 @@ import {
   Avatar
 } from '@mui/material';
 
-const VideoInfoCard = ({handleOpen}) => {
+const VideoInfoCard = ({handleOpen, videoData}) => {
 
   return (
     <Box style={{position: "absolute", zIndex: 1,}}>
@@ -27,7 +27,7 @@ const VideoInfoCard = ({handleOpen}) => {
           <CardMedia
             component="img"
             /* Img Path */
-            image="/img/An.jpg"
+            image={videoData.thumbnailUrl}
             alt="green iguana"
             sx={{ backgroundSize: "cover", aspectRatio: "16 / 9" }}
           />
@@ -45,20 +45,20 @@ const VideoInfoCard = ({handleOpen}) => {
                 {/* Title & Uploader */}
                 <Box sx={{margin: "5px", color: "white"}}>
                   <Typography  variant="subtitle1" component="div">
-                    This is Test Title
+                    {videoData.title}
                   </Typography>
                   <Typography  variant="caption" component="div">
-                    Uploader Name
+                    {videoData.uploader}
                   </Typography>
                 </Box>
 
                 {/* Watch & Like */}
                 <Box sx={{ margin: "5px", bottom: "0px", opacity: 0.5}}>
                   <Typography variant="caption" component="div" align='right'>
-                    Like : {1234}
+                    Watch : {videoData.watch}
                   </Typography>
                   <Typography variant="caption" component="div" align='right'>
-                    Watch : {1234}
+                    Like : {videoData.like}
                   </Typography>
                 </Box>
 

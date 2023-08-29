@@ -6,7 +6,6 @@ import VideoInfoCard from './VideoInfoCard';
 import VideoModal from './VideoModal';
 
 const VideoCard = (props) => {
-  const [videoData, setVideoData] = useState(props.videoData)
   const [isMouseOn, setIsMouseOn] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,7 +30,7 @@ const VideoCard = (props) => {
       maxWidth: "300px",
       aspectRatio: "16 / 9",
       /* Image Path */
-      backgroundImage: `url(${videoData.thumbnailUrl})`,
+      backgroundImage: `url(${props.videoData.thumbnailUrl})`,
       backgroundSize: "cover",
       margin: "5px",
       padding: "0px",
@@ -42,10 +41,10 @@ const VideoCard = (props) => {
     >
 
       {/* Vedeo Info Card */}
-      {isMouseOn && <VideoInfoCard handleOpen={handleOpen}/>}
+      {isMouseOn && <VideoInfoCard handleOpen={handleOpen} videoData={props.videoData}/>}
 
       {/* Vedeo Modal */}
-      {isOpen && <VideoModal handleClose={handleClose}/>}
+      {isOpen && <VideoModal handleClose={handleClose} videoData={props.videoData}/>}
 
     </Grid>
   );
