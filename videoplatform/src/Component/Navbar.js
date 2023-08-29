@@ -18,7 +18,7 @@ import {
 import ElevationScroll from "./ElevationScroll";
 import { doc, setDoc, collection, query, getDocs } from "firebase/firestore";
 import { store } from "../firebase";
-
+import {useSelector, dispatch } from 'react-redux';
 const pages = ["Upload Video"];
 const modalStyle = {
   position: "absolute",
@@ -42,7 +42,7 @@ const Navbar = () => {
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("tlqkf");
+  const userName = useSelector(state=>state.userName);
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -56,6 +56,7 @@ const Navbar = () => {
     const password = data.get("password");
     const q = query(collection(store, "Users"));
     const querySnapshot = await getDocs(q);
+
     querySnapshot.forEach((doc) => {
       if(email!==doc.data().email){
         return;
@@ -64,7 +65,8 @@ const Navbar = () => {
         if(password===doc.data().password){
           setIsLoggedIn(true);
           handleLoginClose();
-          setUserName(doc.data().name);
+
+          dispatch({type: 'LOGIN', userName: doc.data().name});
           return;
         }
         else{

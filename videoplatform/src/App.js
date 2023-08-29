@@ -3,7 +3,22 @@ import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import VideoList from "./Component/VideoList";
 import Navbar from "./Component/Navbar";
+import { createStore } from 'redux';
+import {Provider} from 'react-redux';
 
+function reducer(currentState, action){
+  if(currentState===undefined){
+    return {
+      userName: "Guest"
+    }
+  }
+  const newState = {...currentState};
+  if(action.type==='LOGIN'){
+    newState.userName = action.userName;
+  }
+  return newState;
+}
+const store = createStore(reducer);
 const theme = createTheme({
   palette: {
     white: {
@@ -18,6 +33,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <Provider store={store}>
       <Navbar />
       <Container
         maxWidth="lg"
@@ -25,6 +41,7 @@ function App() {
       >
         <VideoList />
       </Container>
+      </Provider>
     </ThemeProvider>
   );
 }
