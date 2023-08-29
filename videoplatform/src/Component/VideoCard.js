@@ -10,9 +10,6 @@ const VideoCard = (props) => {
   const [isMouseOn, setIsMouseOn] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(()=>{
-    console.log(videoData)
-  }, [])
 
   const handleOpen = () => {
     setIsOpen(true)
@@ -34,7 +31,7 @@ const VideoCard = (props) => {
       maxWidth: "300px",
       aspectRatio: "16 / 9",
       /* Image Path */
-      backgroundImage: `"url(/img/An.jpg)"`,
+      backgroundImage: `url(${videoData.thumbnailUrl})`,
       backgroundSize: "cover",
       margin: "5px",
       padding: "0px",

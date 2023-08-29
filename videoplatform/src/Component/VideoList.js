@@ -92,7 +92,6 @@ const VideoList = () => {
 
       {/* Movie Cards */}
         <Grid container spacing={1} sx={{position: "relative", justifyContent: "center"}}>
-          <VideoCard></VideoCard>
             {videoList.map((videoData) => {
               return <VideoCard key={videoData.id} videoData={videoData}></VideoCard>
             })}
