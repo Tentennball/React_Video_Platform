@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { FileUpload } from '../API/FileUploadAPI';
-import { uploadVideoData } from "../API/VideoAPI"
+import { uploadVideoDataApi } from "../API/VideoAPI"
 import { useSelector } from "react-redux";
 
 const VideoUploadModal = (props) => {
@@ -17,10 +17,12 @@ const VideoUploadModal = (props) => {
   const [title, setTitle] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
   const userName = useSelector((state) => state.userName);
+
+  // Handler
   const handleTitleChange = (e) => {
     setTitle(e.target.value)
   }
-
+  
   const handleVideoFileChange = (e) => {
     setVideoFile(e.target.files[0])
   }
@@ -34,17 +36,21 @@ const VideoUploadModal = (props) => {
       props.handleClose()
     }
   }
-
+  
   const handleUpload = async(e) => {
     e.preventDefault()
-
     setIsUploading(true)
 
-    const timeStamp = new Date().getTime().toString()
-    const videoUrl = await FileUpload("Video", videoFile, timeStamp)
-    const thumbnailUrl = await FileUpload("Thumbnail", thumbnailFile, timeStamp)
-      .catch((e) => (console.log(e)))
 
+    const timeStamp = new Date().getTime().toString()
+
+    // File Upload & get FileUrl
+    const videoUrl = await FileUpload("Video", videoFile, timeStamp)
+      .catch((e) => {console.error(e); alert("Video File Upload Fail")})
+    const thumbnailUrl = await FileUpload("Thumbnail", thumbnailFile, timeStamp)
+      .catch((e) => {console.error(e); alert("Thumbnail File Upload Fail")})
+
+    // Create Video Data & Data Upload 
     const VideoData = {
       id: timeStamp,
       title: title,
@@ -54,10 +60,10 @@ const VideoUploadModal = (props) => {
       like: 0,
       watch: 0
     }
-    console.log(VideoData)
-    uploadVideoData(VideoData)
+    await uploadVideoDataApi(VideoData)
 
     setIsUploading(false)
+
     alert("Upload Finish")
     props.handleClose()
   }
@@ -86,6 +92,7 @@ const VideoUploadModal = (props) => {
           padding: "20px",
         }}>
 
+          {/* Title */}
           <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
             Video Title
           </Typography>
@@ -101,6 +108,7 @@ const VideoUploadModal = (props) => {
               }}
             />
 
+            {/* Video File */}
             <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
               Video File
             </Typography>
@@ -116,6 +124,7 @@ const VideoUploadModal = (props) => {
               </Typography>
             </Box>
 
+            {/* Thumbnail File */}
             <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
               Thumbnail File
             </Typography>
@@ -131,7 +140,7 @@ const VideoUploadModal = (props) => {
               </Typography>
             </Box>
 
-
+            {/* Upload Button */}
             <Button 
               onClick={handleUpload} 
               variant="contained" 
