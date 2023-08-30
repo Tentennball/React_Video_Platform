@@ -46,9 +46,13 @@ const VideoUploadModal = (props) => {
 
     // File Upload & get FileUrl
     const videoUrl = await FileUpload("Video", videoFile, timeStamp)
-      .catch((e) => {console.error(e); alert("Video File Upload Fail")})
+      .catch((e) => {console.error(e); alert("Video File Upload Fail"); return null;})
     const thumbnailUrl = await FileUpload("Thumbnail", thumbnailFile, timeStamp)
-      .catch((e) => {console.error(e); alert("Thumbnail File Upload Fail")})
+      .catch((e) => {console.error(e); alert("Thumbnail File Upload Fail"); return null;})
+
+    if(videoUrl && thumbnailFile){
+      return;
+    }
 
     // Create Video Data & Data Upload 
     const VideoData = {
