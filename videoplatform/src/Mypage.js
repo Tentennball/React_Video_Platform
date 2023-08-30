@@ -1,10 +1,10 @@
 import Container from "@mui/material/Container";
 import { Box } from "@mui/material";
-import { getUserVideoList } from "../API/VideoAPI";
+import { getUserVideoList } from "./API/VideoAPI";
 import { useState, useEffect } from "react";
-import VideoCard from "./VideoCard";
-import Navbar from "./Navbar";
-import { store } from "../App";
+import VideoCard from "./Component/VideoCard";
+import Navbar from "./Component/Navbar";
+import { store } from "./App";
 import { Provider, useSelector } from "react-redux";
 const Mypage = () => {
   const [videoList, setVideoList] = useState([]);
