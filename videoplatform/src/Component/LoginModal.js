@@ -44,6 +44,7 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
           await setDoc(doc(store, "session", docs.data().name), {
             name: docs.data().name,
             email: docs.data().email,
+            likedVideoList: docs.data().likedVideoList,
           });
           return;
         }

@@ -34,6 +34,7 @@ const SignUpModal = ({handleClose}) => {
       name: name,
       email: email,
       password: password,
+      likedVideoList: [],
     });
     alert("SignUp Completed");
     handleClose();

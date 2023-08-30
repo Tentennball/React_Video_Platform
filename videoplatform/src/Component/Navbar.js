@@ -49,7 +49,11 @@ const Navbar = () => {
       const sessionQuery = query(collection(store, "session"));
       const snapShot = await getDocs(sessionQuery);
       snapShot.forEach((docs)=>{
-        dispatch({type: 'LOGIN', userName: docs.data().name});
+        dispatch({
+          type: 'LOGIN', 
+          userName: docs.data().name,
+          likedVideoList: docs.data().likedVideoList,
+        });
       })
       setIsLoggedIn(!snapShot.empty);
     };

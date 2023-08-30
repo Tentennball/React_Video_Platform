@@ -5,11 +5,16 @@ import { useEffect, useState } from 'react';
 import VideoInfoCard from './VideoInfoCard';
 import VideoModal from './VideoModal';
 
-const VideoCard = (props) => {
-  const [isMouseOn, setIsMouseOn] = useState(false)
+
+const VideoCard = ({videoData, handleLike}) => {
+  const [isMouseOn, setIsMouseOn] = useState(false);
+
+  useEffect(() => {
+    console.log(videoData.title + " is fetch!")
+  },[videoData])
+  
+  // Modal 관련 State & Func
   const [isOpen, setIsOpen] = useState(false);
-
-
   const handleOpen = () => {
     setIsOpen(true)
   };
@@ -17,7 +22,6 @@ const VideoCard = (props) => {
     setIsOpen(false)
     setIsMouseOn(false)
   };
-
 
   return (
     /* Vedeo Img Card */
@@ -30,7 +34,7 @@ const VideoCard = (props) => {
       maxWidth: "300px",
       aspectRatio: "16 / 9",
       /* Image Path */
-      backgroundImage: `url(${props.videoData.thumbnailUrl})`,
+      backgroundImage: `url(${videoData.thumbnailUrl})`,
       backgroundSize: "cover",
       margin: "5px",
       padding: "0px",
@@ -41,10 +45,10 @@ const VideoCard = (props) => {
     >
 
       {/* Video Info Card */}
-      {isMouseOn && <VideoInfoCard handleOpen={handleOpen} videoData={props.videoData}/>}
+      {isMouseOn && <VideoInfoCard handleOpen={handleOpen} videoData={videoData}/>}
 
       {/* Video Modal */}
-      {isOpen && <VideoModal handleClose={handleClose} videoData={props.videoData}/>}
+      {isOpen && <VideoModal handleClose={handleClose} videoData={videoData} handleLike={handleLike}/>}
 
     </Grid>
   );

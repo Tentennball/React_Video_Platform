@@ -1,5 +1,5 @@
 import { storage, store } from "../firebase";
-import { doc, getDocs, setDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { collection, query, where } from "firebase/firestore";
 
 // VideoUpload시 DB에 Video의 메타 데이터를 저장하는 API
@@ -26,6 +26,18 @@ export const getVideoListApi = async () => {
       return []
     });
 };
+
+// Video Like Handler
+export const handleLikeApi = async (targetVideoId, adjustVal) => {
+  const targetVideoDoc = doc(store, "VideoList", targetVideoId)
+  const currentLike = await getDoc(targetVideoDoc)
+    .then((snapShot) => {return snapShot.get("like")})
+    .catch((e) => { console.error(e); alert("Like Fail"); });
+  await updateDoc(targetVideoDoc, {like: currentLike + adjustVal})
+  return currentLike + adjustVal
+}
+
+
 
 //여기 userName
 export const getUserVideoList = async (setVideoList, userName) => {

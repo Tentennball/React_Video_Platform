@@ -8,32 +8,33 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { doc, updateDoc } from "firebase/firestore";
+import CheckIcon from '@mui/icons-material/Check';
 import ReactPlayer from "react-player";
-import { store } from "../firebase";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-const VideoModal = ({ handleClose, videoData }) => {
-  const [liked, setLiked] = useState(false);
-  const likeToggle = async () => {
-    setLiked((prevLiked) => !prevLiked);
-  };
-  
-  useEffect(() => {
-    const updateLike = async () => {
-      const like = doc(store, "VideoList", videoData.id);
-      console.log(liked);
-  
-      if (!liked) {
-        await updateDoc(like, { like: videoData.like + 1 });
-        videoData.like++;
-      } else {
-        await updateDoc(like, { like: videoData.like - 1 });
-        videoData.like--;
-      }
-    };
-  
-    updateLike();
-  }, [liked, videoData.like, videoData.id]);
+
+const VideoModal = ({ handleClose, videoData, handleLike }) => {
+
+  const dispatch = useDispatch()
+  const likedVideoList = useSelector(state => state.likedVideoList)
+  const [isLiked, setIsLiked] = useState(likedVideoList.includes(videoData.id))
+
+  const handleLikeBtn = async() => {
+    await handleLike(videoData.id, (isLiked)?"Cancel":"Like")
+    if(isLiked){
+      dispatch({
+        type: "SET_LIKED_VIDEO_LIST",
+        likedVideoList: likedVideoList.filter((videoId) => {return videoId != videoData.id})
+      })
+    } else {
+      dispatch({
+        type: "SET_LIKED_VIDEO_LIST",
+        likedVideoList: likedVideoList.concat([videoData.id])
+      })
+    }
+    setIsLiked((isLiked) => {return !isLiked})
+  }
+
   return (
     <Modal open={true} onClose={handleClose}>
       <Container
@@ -142,11 +143,11 @@ const VideoModal = ({ handleClose, videoData }) => {
             >
               <Button
                 variant="outlined"
-                startIcon={<FavoriteIcon />}
+                startIcon={isLiked?<CheckIcon />:<FavoriteIcon />}
                 color="white"
-                style={{ backgroundColor: liked ? "#737373" : "transparent" }}
+                style={{ backgroundColor: isLiked ? "#737373" : "transparent" }}
                 sx={{ overflow: "hidden", marginRight: "10px", flexGrow: 1 }}
-                onClick={likeToggle}
+                onClick={handleLikeBtn}
               >
                 Like
               </Button>

@@ -10,12 +10,19 @@ import VideoListViewer from "./Component/VideoListViewer";
 function reducer(currentState, action){
   if(currentState===undefined){
     return {
-      userName: "Guest"
+      userName: "Guest",
+      likedVideoList: [],
     }
   }
   const newState = {...currentState};
   if(action.type==='LOGIN'){
+    console.log(action)
     newState.userName = action.userName;
+    newState.likedVideoList = action.likedVideoList
+  }
+  else if (action.type==='SET_LIKED_VIDEO_LIST'){
+    newState.likedVideoList = action.likedVideoList
+    console.log(newState.likedVideoList)
   }
   return newState;
 }
