@@ -5,9 +5,6 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import VideoCard from "./VideoCard"
 import { getVideoListApi, handleLikeApi } from '../API/VideoAPI';
-import { useSelector, useDispatch } from "react-redux";
-import { doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
-import { store } from "../firebase";
 
 const VideoList = () => {
   const [videoList, setVideoList] = useState([]);
@@ -17,9 +14,7 @@ const VideoList = () => {
   }, [])
 
   const getVideoList = async() => {
-    setVideoList(await getVideoListApi(setVideoList).
-      catch((e) => { console.error(e); alert("Get List Fail"); })
-    )
+    setVideoList(await getVideoListApi(setVideoList))
   }
 
   const handleLike = useCallback(async(targetVideoId, type="Like") => {
@@ -37,28 +32,6 @@ const VideoList = () => {
     }))
     console.log(videoList)
   }, [videoList])
-
-    // const [liked, setLiked] = useState(false);
-    // const likeToggle = async () => {
-    //   setLiked((prevLiked) => !prevLiked);
-    // };
-    
-    // useEffect(() => {
-    //   const updateLike = async () => {
-    //     const like = doc(store, "VideoList", videoData.id);
-    //     console.log(liked);
-    
-    //     if (!liked) {
-    //       await updateDoc(like, { like: videoData.like + 1 });
-    //       videoData.like++;
-    //     } else {
-    //       await updateDoc(like, { like: videoData.like - 1 });
-    //       videoData.like--;
-    //     }
-    //   };
-    
-    //   updateLike();
-    // }, [liked, videoData.like, videoData.id]);
 
   return (
     <Box sx={{paddingBottom: "100px"}}>

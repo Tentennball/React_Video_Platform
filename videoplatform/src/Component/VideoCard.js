@@ -1,7 +1,7 @@
 import {
   Grid, 
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import VideoInfoCard from './VideoInfoCard';
 import VideoModal from './VideoModal';
 
@@ -9,10 +9,6 @@ import VideoModal from './VideoModal';
 const VideoCard = ({videoData, handleLike}) => {
   const [isMouseOn, setIsMouseOn] = useState(false);
 
-  useEffect(() => {
-    console.log(videoData.title + " is fetch!")
-  },[videoData])
-  
   // Modal 관련 State & Func
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
