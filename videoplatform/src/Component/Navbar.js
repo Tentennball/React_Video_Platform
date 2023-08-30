@@ -1,11 +1,24 @@
-import React, { useState } from "react";
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import LoginModal from "./LoginModal";
 import SignUpModal from "./SignUpModal";
 import VideoUploadModal from "./VidoeUploadModal";
 import ElevationScroll from "./ElevationScroll";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { store } from "../firebase";
+import { doc, getDocs, deleteDoc } from "firebase/firestore";
+import { collection, query } from "firebase/firestore";
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -25,8 +38,23 @@ const Navbar = () => {
 
   const userName = useSelector((state) => state.userName);
   const handleCloseNavMenu = () => setAnchorElNav(null);
+  const dispatch = useDispatch();
 
-  const logOut = () => setIsLoggedIn(false);
+  const logOut = async () => {
+    setIsLoggedIn(false);
+    await deleteDoc(doc(store, "session", userName));
+  };
+  useEffect(() => {
+    const checkSession = async () => {
+      const sessionQuery = query(collection(store, "session"));
+      const snapShot = await getDocs(sessionQuery);
+      snapShot.forEach((docs)=>{
+        dispatch({type: 'LOGIN', userName: docs.data().name});
+      })
+      setIsLoggedIn(!snapShot.empty);
+    };
+    checkSession();
+  }, [dispatch]);
 
   return (
     <ElevationScroll>

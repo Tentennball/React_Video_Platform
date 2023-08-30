@@ -6,9 +6,9 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, setDoc, doc } from "firebase/firestore";
 import { store } from "../firebase";
-import { useDispatch } from 'react-redux';
+
 
 const modalStyle = {
   position: "absolute",
@@ -23,7 +23,7 @@ const modalStyle = {
   p: 4,
 };
 const LoginModal = ({handleClose, setIsLoggedIn}) => {
-  const dispatch = useDispatch();
+
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -32,17 +32,19 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
     const password = data.get("password");
     const q = query(collection(store, "Users"));
     const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-      if(email!==doc.data().email){
+    querySnapshot.forEach(async(docs) => {
+      if(email!==docs.data().email){
         return;
       }
       else{
-        if(password===doc.data().password){
+        if(password===docs.data().password){
           setIsLoggedIn(true);
-          handleClose();
-
-          dispatch({type: 'LOGIN', userName: doc.data().name});
+          handleClose();  
+          
+          await setDoc(doc(store, "session", docs.data().name), {
+            name: docs.data().name,
+            email: docs.data().email,
+          });
           return;
         }
         else{
