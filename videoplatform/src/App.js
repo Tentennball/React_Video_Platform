@@ -5,6 +5,7 @@ import VideoList from "./Component/VideoList";
 import Navbar from "./Component/Navbar";
 import { createStore } from 'redux';
 import {Provider} from 'react-redux';
+import VideoListViewer from "./Component/VideoListViewer";
 
 function reducer(currentState, action){
   if(currentState===undefined){
@@ -40,7 +41,7 @@ function App() {
         maxWidth="lg"
         sx={{ backgroundColor: "#1F1F1F", marginTop: "4rem" }}
       >
-        <VideoList />
+        <VideoListViewer />
       </Container>
       </Provider>
     </ThemeProvider>
