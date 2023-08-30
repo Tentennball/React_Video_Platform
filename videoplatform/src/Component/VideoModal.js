@@ -11,20 +11,25 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CheckIcon from '@mui/icons-material/Check';
 import ReactPlayer from "react-player";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const VideoModal = ({ handleClose, videoData, handleLike }) => {
 
   const dispatch = useDispatch()
   const likedVideoList = useSelector(state => state.likedVideoList)
+  const loggedInUserName = useSelector(state => state.userName)
   const [isLiked, setIsLiked] = useState(likedVideoList.includes(videoData.id))
+
+  useEffect(() => {
+    console.log(loggedInUserName)
+  }, [])
 
   const handleLikeBtn = async() => {
     await handleLike(videoData.id, (isLiked)?"Cancel":"Like")
     if(isLiked){
       dispatch({
         type: "SET_LIKED_VIDEO_LIST",
-        likedVideoList: likedVideoList.filter((videoId) => {return videoId != videoData.id})
+        likedVideoList: likedVideoList.filter((videoId) => {return videoId !== videoData.id})
       })
     } else {
       dispatch({
@@ -148,6 +153,7 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
                 style={{ backgroundColor: isLiked ? "#737373" : "transparent" }}
                 sx={{ overflow: "hidden", marginRight: "10px", flexGrow: 1 }}
                 onClick={handleLikeBtn}
+                disabled={loggedInUserName === "Guest"}
               >
                 Like
               </Button>
@@ -156,6 +162,7 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
                 startIcon={<BookmarkAddIcon />}
                 color="white"
                 sx={{ flexGrow: 1 }}
+                disabled={loggedInUserName === "Guest"}
               >
                 BookMark
               </Button>
