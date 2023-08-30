@@ -13,16 +13,12 @@ import ReactPlayer from "react-player";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
-const VideoModal = ({ handleClose, videoData, handleLike }) => {
+const VideoModal = ({ handleClose, videoData, handleLike, }) => {
 
   const dispatch = useDispatch()
   const likedVideoList = useSelector(state => state.likedVideoList)
   const loggedInUserName = useSelector(state => state.userName)
   const [isLiked, setIsLiked] = useState(likedVideoList.includes(videoData.id))
-
-  useEffect(() => {
-    console.log(loggedInUserName)
-  }, [])
 
   const handleLikeBtn = async() => {
     await handleLike(videoData.id, (isLiked)?"Cancel":"Like")

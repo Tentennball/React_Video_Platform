@@ -4,14 +4,16 @@ import {
 import { useState } from 'react';
 import VideoInfoCard from './VideoInfoCard';
 import VideoModal from './VideoModal';
+import { useDispatch } from "react-redux";
 
-
-const VideoCard = ({videoData, handleLike}) => {
+const VideoCard = ({videoData, handleLike, handleWatch}) => {
   const [isMouseOn, setIsMouseOn] = useState(false);
+  const dispatch = useDispatch()
 
   // Modal 관련 State & Func
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
+    handleWatch(videoData.id)
     setIsOpen(true)
   };
   const handleClose = () => {
@@ -44,7 +46,7 @@ const VideoCard = ({videoData, handleLike}) => {
       {isMouseOn && <VideoInfoCard handleOpen={handleOpen} videoData={videoData}/>}
 
       {/* Video Modal */}
-      {isOpen && <VideoModal handleClose={handleClose} videoData={videoData} handleLike={handleLike}/>}
+      {isOpen && <VideoModal handleClose={handleClose} videoData={videoData} handleLike={handleLike} />}
 
     </Grid>
   );

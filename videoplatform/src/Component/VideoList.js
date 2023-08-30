@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import VideoCard from "./VideoCard"
-import { getVideoListApi, handleLikeApi } from '../API/VideoAPI';
+import { getVideoListApi, handleLikeApi, handleWatchApi } from '../API/VideoAPI';
 
 const VideoList = () => {
   const [videoList, setVideoList] = useState([]);
@@ -33,12 +33,24 @@ const VideoList = () => {
     console.log(videoList)
   }, [videoList])
 
+  const handleWatch = useCallback(async(targetVideoId) => {
+    const updateWatch = await handleWatchApi(targetVideoId)
+    setVideoList(videoList.map((video) => {
+      if(video.id === targetVideoId){
+        return {...video, watch: updateWatch}
+      } else {
+        return video
+      }
+    }))
+    console.log(videoList)
+  }, [videoList])
+
   return (
     <Box sx={{paddingBottom: "100px"}}>
       {/* Movie Cards */}
         <Grid container spacing={1} sx={{position: "relative", justifyContent: "center"}}>
             {videoList.map((videoData) => {
-              return <VideoCard key={videoData.id} videoData={videoData} handleLike={handleLike} ></VideoCard>
+              return <VideoCard key={videoData.id} videoData={videoData} handleLike={handleLike} handleWatch={handleWatch} ></VideoCard>
             })}
         </Grid>
     </Box>

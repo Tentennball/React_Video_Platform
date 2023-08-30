@@ -5,6 +5,7 @@ import Navbar from "./Component/Navbar";
 import { createStore } from 'redux';
 import {Provider} from 'react-redux';
 import VideoListViewer from "./Component/VideoListViewer";
+import { likedVideoListUpdateApi } from './API/VideoAPI';
 
 function reducer(currentState, action){
   if(currentState===undefined){
@@ -23,8 +24,9 @@ function reducer(currentState, action){
     newState.userName = "Guest";
     newState.likedVideoList = []
     console.log(newState)
-  } 
-  else if (action.type==='SET_LIKED_VIDEO_LIST'){
+  }
+  else if (action.type === 'SET_LIKED_VIDEO_LIST'){
+    likedVideoListUpdateApi(action.likedVideoList, newState.userName)
     newState.likedVideoList = action.likedVideoList
     console.log(newState)
   }
