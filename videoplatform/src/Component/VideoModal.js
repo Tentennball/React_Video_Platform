@@ -37,12 +37,11 @@ const VideoModal = ({ handleClose, videoData }) => {
   return (
     <Modal open={true} onClose={handleClose}>
       <Container
-        maxWidth="md"
+        maxWidth="xs"
         disableGutters={true}
         sx={{
           width: "70vw",
-          height: "100vh",
-          outline: "none",
+          height: "100vh",  
           display: "flex",
           alignItems: "center",
         }}
