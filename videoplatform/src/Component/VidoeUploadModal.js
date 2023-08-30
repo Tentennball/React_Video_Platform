@@ -50,7 +50,7 @@ const VideoUploadModal = (props) => {
       title: title,
       videoUrl: videoUrl,
       thumbnailUrl: thumbnailUrl,
-      uploder: userName,
+      uploader: userName,
       like: 0,
       watch: 0
     }
