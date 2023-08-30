@@ -7,7 +7,7 @@ const Mypage = () => {
         maxWidth="lg"
         sx={{ backgroundColor: "#1F1F1F", marginTop: "4rem" }}
       >
-        <VideoListViewer viewerTitle={"Uploaded Video"}/>
+        <VideoListViewer viewerTitle={"Uploaded Video"} type={"MyPage"}/>
       </Container>
   );
 };

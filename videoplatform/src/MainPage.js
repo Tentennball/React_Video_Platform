@@ -7,7 +7,7 @@ const MainPage = () => {
       maxWidth="lg"
       sx={{ backgroundColor: "#1F1F1F", marginTop: "4rem" }}
     >
-      <VideoListViewer viewerTitle={"Video List"} />
+      <VideoListViewer viewerTitle={"Video List"} type={"MainPage"}/>
     </Container>
   );
 }

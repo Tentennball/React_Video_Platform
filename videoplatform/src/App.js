@@ -19,17 +19,14 @@ function reducer(currentState, action) {
   if (action.type === 'LOGIN') {
     newState.userName = action.userName;
     newState.likedVideoList = action.likedVideoList
-    console.log(newState)
   }
   else if (action.type === 'LOGOUT') {
     newState.userName = "Guest";
     newState.likedVideoList = []
-    console.log(newState)
   }
   else if (action.type === 'SET_LIKED_VIDEO_LIST') {
     likedVideoListUpdateApi(action.likedVideoList, newState.userName)
     newState.likedVideoList = action.likedVideoList
-    console.log(newState)
   }
   return newState;
 }

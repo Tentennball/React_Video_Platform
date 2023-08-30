@@ -4,17 +4,23 @@ import {
 } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import VideoCard from "./VideoCard"
-import { getVideoListApi, handleLikeApi, handleWatchApi } from '../API/VideoAPI';
+import { getVideoListApi, getUserVideoListApi, handleLikeApi, handleWatchApi } from '../API/VideoAPI';
+import { useSelector } from "react-redux";
 
-const VideoList = () => {
+const VideoList = ({type}) => {
   const [videoList, setVideoList] = useState([]);
+  const userName = useSelector((state) => state.userName);
 
   useEffect(() => {
     getVideoList()
-  }, [])
+  })
 
   const getVideoList = async() => {
-    setVideoList(await getVideoListApi(setVideoList))
+    if (type === "MyPage") {
+      setVideoList(await getUserVideoListApi(userName))
+    } else {
+      setVideoList(await getVideoListApi())
+    }
   }
 
   const handleLike = useCallback(async(targetVideoId, type="Like") => {
@@ -30,7 +36,6 @@ const VideoList = () => {
         return video
       }
     }))
-    console.log(videoList)
   }, [videoList])
 
   const handleWatch = useCallback(async(targetVideoId) => {

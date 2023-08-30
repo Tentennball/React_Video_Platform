@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from 'react';
 import VideoList from './VideoList';
 
-const VideoListViewer = ({viewerTitle}) => {
+const VideoListViewer = ({viewerTitle, type}) => {
   const [sortOption, setSortOption] = useState('');
 
   const handleChange = (e) => {
@@ -64,7 +64,7 @@ const VideoListViewer = ({viewerTitle}) => {
         </FormControl>
       </Box>
 
-      <VideoList></VideoList>
+      <VideoList type={type}></VideoList>
 
     </Box>
   );

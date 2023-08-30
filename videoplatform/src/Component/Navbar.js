@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { store } from "../firebase";
 import { doc, getDocs, getDoc, deleteDoc } from "firebase/firestore";
 import { collection, query } from "firebase/firestore";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -144,6 +145,7 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {isLoggedIn ? (
                 <Button
+                  color="white"
                   onClick={handleVideoOpen}
                   sx={{
                     my: 2,
@@ -175,16 +177,20 @@ const Navbar = () => {
                       />
                     </IconButton>
                     {userName}
+                    <Link to="/MyPage" style={{color:"white" ,textDecoration: "none"}}>
+                      <Button
+                        color="white"
+                        sx={{
+                          color: "inherit",
+                          textTransform: "none", // 대문자 변경을 수정
+                          fontSize: "18px",
+                        }}
+                      >
+                        Profile
+                      </Button>
+                    </Link>
                     <Button
-                      sx={{
-                        color: "inherit",
-                        textTransform: "none", // 대문자 변경을 수정
-                        fontSize: "18px",
-                      }}
-                    >
-                      Profile
-                    </Button>
-                    <Button
+                      color="white"
                       onClick={logOut}
                       sx={{
                         color: "inherit",
@@ -200,6 +206,7 @@ const Navbar = () => {
             ) : (
               <Box>
                 <Button
+                  color="white"
                   onClick={handleLoginOpen}
                   sx={{
                     color: "inherit",
@@ -210,6 +217,7 @@ const Navbar = () => {
                   Login
                 </Button>
                 <Button
+                  color="white"
                   onClick={handleSignUpOpen}
                   sx={{
                     color: "inherit",
