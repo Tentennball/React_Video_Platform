@@ -9,14 +9,14 @@ import {
 import { useState } from 'react';
 import { FileUpload } from '../API/FileUploadAPI';
 import { uploadVideoData } from "../API/VideoAPI"
-
+import { useSelector } from "react-redux";
 
 const VideoUploadModal = (props) => {
   const [videoFile, setVideoFile] = useState(null)
   const [thumbnailFile, setThumbnailFile] = useState(null)
   const [title, setTitle] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
-
+  const userName = useSelector((state) => state.userName);
   const handleTitleChange = (e) => {
     setTitle(e.target.value)
   }
@@ -50,7 +50,7 @@ const VideoUploadModal = (props) => {
       title: title,
       videoUrl: videoUrl,
       thumbnailUrl: thumbnailUrl,
-      uploder: "test_Uploader",
+      uploder: userName,
       like: 0,
       watch: 0
     }
