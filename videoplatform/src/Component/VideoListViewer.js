@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from 'react';
 import VideoList from './VideoList';
 
-const VideoListViewer = () => {
+const VideoListViewer = ({viewerTitle}) => {
   const [sortOption, setSortOption] = useState('');
 
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ const VideoListViewer = () => {
       }}>
         {/* Video List Text */}
         <Typography variant="h5" sx={{color: "#FFFFFF"}}>
-          Video List
+          {viewerTitle}
         </Typography>
 
         {/* Sort Btn bar */}
@@ -60,7 +60,6 @@ const VideoListViewer = () => {
           >
             <MenuItem value={"Recently"}>Recently</MenuItem>
             <MenuItem value={"Like"}>Like</MenuItem>
-            <MenuItem value={"Most View"}>Most View</MenuItem>
           </Select>
         </FormControl>
       </Box>

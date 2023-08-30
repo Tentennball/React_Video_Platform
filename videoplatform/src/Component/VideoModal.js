@@ -11,7 +11,7 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CheckIcon from '@mui/icons-material/Check';
 import ReactPlayer from "react-player";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const VideoModal = ({ handleClose, videoData, handleLike, }) => {
 

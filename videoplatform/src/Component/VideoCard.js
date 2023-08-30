@@ -4,11 +4,9 @@ import {
 import { useState } from 'react';
 import VideoInfoCard from './VideoInfoCard';
 import VideoModal from './VideoModal';
-import { useDispatch } from "react-redux";
 
 const VideoCard = ({videoData, handleLike, handleWatch}) => {
   const [isMouseOn, setIsMouseOn] = useState(false);
-  const dispatch = useDispatch()
 
   // Modal 관련 State & Func
   const [isOpen, setIsOpen] = useState(false);
