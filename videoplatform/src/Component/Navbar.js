@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   AppBar,
   Box,
@@ -17,7 +17,7 @@ import VideoUploadModal from "./VidoeUploadModal";
 import ElevationScroll from "./ElevationScroll";
 import { useSelector, useDispatch } from "react-redux";
 import { store } from "../firebase";
-import { doc, getDocs, deleteDoc } from "firebase/firestore";
+import { doc, getDocs, getDoc, deleteDoc } from "firebase/firestore";
 import { collection, query } from "firebase/firestore";
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -40,25 +40,65 @@ const Navbar = () => {
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const dispatch = useDispatch();
 
-  const logOut = async () => {
-    setIsLoggedIn(false);
+  const logOut = useCallback(async () => {
     await deleteDoc(doc(store, "session", userName));
-  };
+    dispatch({
+      type: 'LOGOUT', 
+      userName: "Guest",
+      likedVideoList: [],
+    });
+    // 로그아웃 시 session데이터 삭제
+    sessionStorage.removeItem("userName")
+    setIsLoggedIn(false);
+  }, [dispatch, userName]);
   useEffect(() => {
     const checkSession = async () => {
-      const sessionQuery = query(collection(store, "session"));
-      const snapShot = await getDocs(sessionQuery);
-      snapShot.forEach((docs)=>{
-        dispatch({
-          type: 'LOGIN', 
-          userName: docs.data().name,
-          likedVideoList: docs.data().likedVideoList,
-        });
-      })
-      setIsLoggedIn(!snapShot.empty);
+      const sessionData = sessionStorage.getItem("userName")
+      if(sessionData){
+        await getDocs(query(collection(store, "session")))  // DB에서 "session"에서 Docs를 받아옴 
+          .then((snapShot) => {                             // Docs받아오기 성공 시 각 Doc의 id에 대해 sessionData와 일치여부 검사
+            snapShot.forEach(async(sessionDoc) => {
+              // Doc의 id와 sessionData일치 시 -> 로그인 처리
+              if(sessionDoc.id === sessionData){
+                // 로그인 처리 -> DB에서 데이터를 받아와 redux의 state에 저장
+
+                // DB에서 UserData 받아오기
+                const userData = await getDoc(doc(store, "Users", sessionData))
+                  .then((snapShot) => {
+                    return {
+                      userName: snapShot.get("name"),
+                      likedVideoList: snapShot.get("likedVideoList")
+                    }
+                  })
+                  .catch((e) => {
+                    console.log(e)
+                    alert("Login Data Get Error")
+                    logOut()
+                  })
+                
+                // UserData를 redux state에 저장
+                dispatch({
+                  type: 'LOGIN', 
+                  ...userData
+                });
+                setIsLoggedIn(true)
+              }
+            })
+          })
+          .catch((e) => {
+            // DB에서 "session"에서 Docs를 받아오기 실패 시 -> LogOut처리
+            console.log(e)
+            alert("Session Error")
+            logOut()
+          })
+      } else {
+        // sessionData가 없는 경우 -> 로그인 X
+        setIsLoggedIn(false);
+      }
     };
     checkSession();
-  }, [dispatch]);
+  }, [dispatch, logOut, isLoggedIn]);
+
 
   return (
     <ElevationScroll>

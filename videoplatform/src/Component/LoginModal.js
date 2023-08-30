@@ -38,14 +38,11 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
       }
       else{
         if(password===docs.data().password){
+          await setDoc(doc(store, "session", docs.data().name), {});
+          // SessionStorage(Local)에 사용자 이름 저장
+          sessionStorage.setItem("userName", docs.data().name)
           setIsLoggedIn(true);
           handleClose();  
-          
-          await setDoc(doc(store, "session", docs.data().name), {
-            name: docs.data().name,
-            email: docs.data().email,
-            likedVideoList: docs.data().likedVideoList,
-          });
           return;
         }
         else{
