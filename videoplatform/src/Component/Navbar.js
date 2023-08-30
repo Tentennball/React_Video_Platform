@@ -1,22 +1,10 @@
 import React, { useState } from "react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  Container,
-  Avatar,
-  Button,
-  Tooltip,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip } from "@mui/material";
 import LoginModal from "./LoginModal";
 import SignUpModal from "./SignUpModal";
 import VideoUploadModal from "./VidoeUploadModal";
 import ElevationScroll from "./ElevationScroll";
 import { useSelector } from "react-redux";
-const pages = ["Upload Video"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -34,7 +22,7 @@ const Navbar = () => {
   const handleVideoClose = () => setIsVideoOpen(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+
   const userName = useSelector((state) => state.userName);
   const handleCloseNavMenu = () => setAnchorElNav(null);
 
@@ -84,9 +72,8 @@ const Navbar = () => {
               ></Menu>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              {isLoggedIn ? (
                 <Button
-                  key={page}
                   onClick={handleVideoOpen}
                   sx={{
                     my: 2,
@@ -96,9 +83,10 @@ const Navbar = () => {
                     fontSize: "18px",
                   }}
                 >
-                  {page}
+                  Upload Video
                 </Button>
-              ))}
+              ) : null}
+
               {isVideoOpen && (
                 <VideoUploadModal
                   isOpen={isVideoOpen}

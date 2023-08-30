@@ -14,7 +14,7 @@ import VideoCard from "./VideoCard"
 import { getVideoList } from '../API/VideoAPI';
 
 const VideoList = () => {
-  const [videoList, setVideoList] = useState([])
+  const [videoList, setVideoList] = useState([]);
   const [sortOption, setSortOption] = useState('');
 
   const handleChange = (e) => {
@@ -22,8 +22,8 @@ const VideoList = () => {
   };
 
   useEffect(() => {
-    setSortOption("Recently")
-    getVideoList(setVideoList)
+    setSortOption("Recently");
+    getVideoList(setVideoList);
   }, [])
 
 

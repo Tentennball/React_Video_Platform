@@ -33,15 +33,16 @@ const VideoModal = ({ handleClose, videoData }) => {
     };
   
     updateLike();
-  }, [liked, videoData.like]);
+  }, [liked, videoData.like, videoData.id]);
   return (
     <Modal open={true} onClose={handleClose}>
       <Container
-        maxWidth="xs"
+        maxWidth="md"
         disableGutters={true}
         sx={{
           width: "70vw",
-          height: "100vh",  
+          height: "100vh",
+          outline: "none",
           display: "flex",
           alignItems: "center",
         }}

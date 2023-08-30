@@ -19,6 +19,7 @@ function reducer(currentState, action){
   return newState;
 }
 const store = createStore(reducer);
+export {store};
 const theme = createTheme({
   palette: {
     white: {
