@@ -44,8 +44,6 @@ const Navbar = () => {
     await deleteDoc(doc(store, "session", userName));
     dispatch({
       type: 'LOGOUT', 
-      userName: "Guest",
-      likedVideoList: [],
     });
     // 로그아웃 시 session데이터 삭제
     sessionStorage.removeItem("userName")

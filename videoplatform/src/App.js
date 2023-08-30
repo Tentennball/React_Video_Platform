@@ -1,7 +1,6 @@
 import Container from "@mui/material/Container";
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import VideoList from "./Component/VideoList";
 import Navbar from "./Component/Navbar";
 import { createStore } from 'redux';
 import {Provider} from 'react-redux';
@@ -16,13 +15,18 @@ function reducer(currentState, action){
   }
   const newState = {...currentState};
   if(action.type==='LOGIN'){
-    console.log(action)
     newState.userName = action.userName;
     newState.likedVideoList = action.likedVideoList
-  }
+    console.log(newState)
+  } 
+  else if(action.type==='LOGOUT'){
+    newState.userName = "Guest";
+    newState.likedVideoList = []
+    console.log(newState)
+  } 
   else if (action.type==='SET_LIKED_VIDEO_LIST'){
     newState.likedVideoList = action.likedVideoList
-    console.log(newState.likedVideoList)
+    console.log(newState)
   }
   return newState;
 }
