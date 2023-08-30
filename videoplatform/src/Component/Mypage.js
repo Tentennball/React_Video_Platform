@@ -8,8 +8,9 @@ import { store } from "../App";
 import { Provider, useSelector } from "react-redux";
 const Mypage = () => {
   const [videoList, setVideoList] = useState([]);
+  //const userName = useSelector((state) => state.userName);
   useEffect(() => {
-    getUserVideoList(setVideoList);
+    getUserVideoList(setVideoList, /*userName*/);//이거 useSelector해서 props에 userName 추가해도 안됨
   },[]);
 
   return (

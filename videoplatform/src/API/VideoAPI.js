@@ -9,10 +9,10 @@ export const uploadVideoData = async (VideoData) => {
   });
 };
 
-
+//여기 userName
 export const getUserVideoList = async (setVideoList, userName) => {
   const videoList = [];
-  console.log(userName);
+  console.log(userName);//
   const videoListQuery = query(collection(store, "VideoList"));
   const snapShot = await getDocs(videoListQuery);
   snapShot.forEach((doc) => {
