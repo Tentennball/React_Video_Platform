@@ -37,7 +37,7 @@ const VideoInfoCard = ({handleOpen, videoData}) => {
             <Box sx={{display: "flex", alignItems: "center"}}>
 
               {/* Profile Img */}
-              <Avatar alt="Cindy Baker" src="/img/An.jpg" variant="rounded" sx={{ width: "45px", height: "45px", margin: "5px" }} />
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{ width: "45px", height: "45px", margin: "5px" }} />
 
 
               <Box sx={{flexGrow: 1, display: "flex", alignItems: "baseline", justifyContent: "space-between"}}>

@@ -88,9 +88,8 @@ const VideoModal = ({ handleClose, videoData, handleLike, }) => {
           >
             {/* Profile Img */}
             <Avatar
-              alt="Cindy Baker"
-              src="/img/An.jpg"
-              variant="rounded"
+              alt="Remy Sharp"
+              src="/static/images/avatar/2.jpg"
               sx={{ width: "60px", height: "60px", margin: "10px" }}
             />
 

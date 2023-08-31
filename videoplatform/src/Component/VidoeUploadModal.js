@@ -50,7 +50,7 @@ const VideoUploadModal = (props) => {
     const thumbnailUrl = await FileUpload("Thumbnail", thumbnailFile, timeStamp)
       .catch((e) => {console.error(e); alert("Thumbnail File Upload Fail"); return null;})
 
-    if(videoUrl && thumbnailFile){
+    if(!(videoUrl && thumbnailFile)){
       return;
     }
 
