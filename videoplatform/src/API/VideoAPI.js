@@ -1,5 +1,5 @@
 import { store } from "../firebase";
-import { doc, getDoc, getDocs, orderBy, setDoc, updateDoc, where } from "firebase/firestore";
+import { doc, getDoc, getDocs, orderBy, setDoc, updateDoc, where, deleteDoc } from "firebase/firestore";
 import { collection, query } from "firebase/firestore";
 
 // VideoUpload시 DB에 Video의 메타 데이터를 저장하는 API
@@ -10,7 +10,12 @@ export const uploadVideoDataApi = async (VideoData) => {
     .catch((e) => { console.error(e); alert("Upload Video Data Api Fail")});
 };
 
-
+export const deleteVideo = async (VideoData) =>{
+  if (window.confirm("Are you Sure?")) { 
+    await deleteDoc(doc(store, "VideoList", VideoData));
+    window.location.reload();
+  }
+}
 // HomePage에서 VideoList를 받아오는 API
 export const getVideoListApi = async (sortOption) => {
 
@@ -38,19 +43,18 @@ export const getVideoListApi = async (sortOption) => {
 
 // Get User Video API
 export const getUserVideoListApi = async (userName) => {
-  console.log("getUserVideoListApi")
   return await getDocs(query(collection(store, "VideoList"), where("uploader", "==", userName)))
     .then((snapShot) => {
       const videoList = [];
       snapShot.forEach((doc) => {
         videoList.push(doc.data());
       });
-      return videoList
+      return videoList;
     })
     .catch((e) => {
-      console.error(e)
-      alert("Get User Video List Api Fail")
-      return []
+      console.error(e);
+      alert("Get User Video List Api Fail");
+      return [];
     });
 };
 

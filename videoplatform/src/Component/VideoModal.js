@@ -8,33 +8,40 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 import ReactPlayer from "react-player";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { deleteVideo } from "../API/VideoAPI";
 
-const VideoModal = ({ handleClose, videoData, handleLike, }) => {
-
-  const dispatch = useDispatch()
-  const likedVideoList = useSelector(state => state.likedVideoList)
-  const loggedInUserName = useSelector(state => state.userName)
-  const [isLiked, setIsLiked] = useState(likedVideoList.includes(videoData.id))
-
-  const handleLikeBtn = async() => {
-    await handleLike(videoData.id, (isLiked)?"Cancel":"Like")
-    if(isLiked){
+const VideoModal = ({ handleClose, videoData, handleLike }) => {
+  const dispatch = useDispatch();
+  const likedVideoList = useSelector((state) => state.likedVideoList);
+  const loggedInUserName = useSelector((state) => state.userName);
+  const [isLiked, setIsLiked] = useState(likedVideoList.includes(videoData.id));
+  console.log(videoData.id);
+  const deleteVideos = async () => {
+    deleteVideo(videoData.id);
+  };
+  const handleLikeBtn = async () => {
+    await handleLike(videoData.id, isLiked ? "Cancel" : "Like");
+    if (isLiked) {
       dispatch({
         type: "SET_LIKED_VIDEO_LIST",
-        likedVideoList: likedVideoList.filter((videoId) => {return videoId !== videoData.id})
-      })
+        likedVideoList: likedVideoList.filter((videoId) => {
+          return videoId !== videoData.id;
+        }),
+      });
     } else {
       dispatch({
         type: "SET_LIKED_VIDEO_LIST",
-        likedVideoList: likedVideoList.concat([videoData.id])
-      })
+        likedVideoList: likedVideoList.concat([videoData.id]),
+      });
     }
-    setIsLiked((isLiked) => {return !isLiked})
-  }
+    setIsLiked((isLiked) => {
+      return !isLiked;
+    });
+  };
 
   return (
     <Modal open={true} onClose={handleClose}>
@@ -127,6 +134,15 @@ const VideoModal = ({ handleClose, videoData, handleLike, }) => {
                   <Typography variant="subtitle1">
                     Like : {videoData.like}
                   </Typography>
+                  <Button
+                    variant="outlined"
+                    color="white"
+                    sx={{ flexGrow: 1, ml: "5px"}}
+                    disabled={loggedInUserName !== videoData.uploader}
+                    onClick={deleteVideos}
+                  >
+                    삭제
+                  </Button>
                 </Box>
               </Box>
             </Box>
@@ -139,13 +155,14 @@ const VideoModal = ({ handleClose, videoData, handleLike, }) => {
                 overflow: "hidden",
                 display: "flex",
                 margin: "10px",
+                ml:0
               }}
             >
               <Button
                 variant="outlined"
-                startIcon={isLiked?<CheckIcon />:<FavoriteIcon />}
+                startIcon={isLiked ? <CheckIcon /> : <FavoriteIcon />}
                 color="white"
-                style={{ backgroundColor: isLiked ? "#737373" : "transparent" }}
+                style={{ backgroundColor: isLiked ? "#737373" : null }}
                 sx={{ overflow: "hidden", marginRight: "10px", flexGrow: 1 }}
                 onClick={handleLikeBtn}
                 disabled={loggedInUserName === "Guest"}
