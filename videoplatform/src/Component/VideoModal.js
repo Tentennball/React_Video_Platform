@@ -19,7 +19,6 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
   const likedVideoList = useSelector((state) => state.likedVideoList);
   const loggedInUserName = useSelector((state) => state.userName);
   const [isLiked, setIsLiked] = useState(likedVideoList.includes(videoData.id));
-  console.log(videoData.id);
   const deleteVideos = async () => {
     deleteVideo(videoData.id);
   };

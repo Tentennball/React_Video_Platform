@@ -4,7 +4,6 @@ import { collection, query } from "firebase/firestore";
 
 // VideoUpload시 DB에 Video의 메타 데이터를 저장하는 API
 export const uploadVideoDataApi = async (VideoData) => {
-  console.log("uploadVideoDataApi")
   await setDoc(doc(store, "VideoList", VideoData.id), VideoData)
     .then(() => {console.log("Upload Video Data is Success")})
     .catch((e) => { console.error(e); alert("Upload Video Data Api Fail")});
@@ -60,7 +59,6 @@ export const getUserVideoListApi = async (userName) => {
 
 // Video Like Handler
 export const handleLikeApi = async (targetVideoId, adjustVal) => {
-  console.log("handleLikeApi")
   const targetVideoDoc = doc(store, "VideoList", targetVideoId)
   const currentLike = await getDoc(targetVideoDoc)
     .then((snapShot) => {return snapShot.get("like")})
@@ -71,7 +69,6 @@ export const handleLikeApi = async (targetVideoId, adjustVal) => {
 
 // Watch Handler
 export const handleWatchApi = async (targetVideoId) => {
-  console.log("handleWatchApi")
   const targetVideoDoc = doc(store, "VideoList", targetVideoId)
   const currentWatch = await getDoc(targetVideoDoc)
     .then((snapShot) => {return snapShot.get("watch")})
@@ -82,7 +79,6 @@ export const handleWatchApi = async (targetVideoId) => {
 
 // likedVideoList Update
 export const likedVideoListUpdateApi = async (likedVideoList, userName) => {
-  console.log("likedVideoListUpdateApi")
   await updateDoc(doc(store, "Users", userName), {likedVideoList: likedVideoList})
     .catch((e) => { console.error(e); alert("Like Video Update Fail"); });
 }

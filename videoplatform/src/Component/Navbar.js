@@ -70,7 +70,6 @@ const Navbar = () => {
                     }
                   })
                   .catch((e) => {
-                    console.log(e)
                     alert("Login Data Get Error")
                     logOut()
                   })
@@ -86,7 +85,6 @@ const Navbar = () => {
           })
           .catch((e) => {
             // DB에서 "session"에서 Docs를 받아오기 실패 시 -> LogOut처리
-            console.log(e)
             alert("Session Error")
             logOut()
           })

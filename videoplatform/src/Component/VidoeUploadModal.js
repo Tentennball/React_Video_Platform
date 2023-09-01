@@ -20,6 +20,7 @@ const VideoUploadModal = (props) => {
   const [isUploading, setIsUploading] = useState(false);
   const userName = useSelector((state) => state.userName);
   // Handler
+  console.log(thumbProgress);
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };

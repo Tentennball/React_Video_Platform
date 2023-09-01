@@ -17,10 +17,8 @@ export const FileUpload = (type, file, timeStamp, setProgress) => {
         
         switch (snapshot.state) {
           case "paused":
-            console.log("Upload is paused");
             break;
           case "running":
-            console.log("Upload is running");
             break;
           default:
             break;
@@ -31,7 +29,6 @@ export const FileUpload = (type, file, timeStamp, setProgress) => {
       },
       async () => {
         const imgURL = await getDownloadURL(uploadTask.snapshot.ref);
-        console.log("uploaded image: " + imgURL);
         // We 'awaited' the imgURL, now resolve this Promise
         resolve(imgURL);
       }

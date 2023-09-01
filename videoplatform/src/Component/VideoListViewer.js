@@ -62,7 +62,6 @@ const VideoListViewer = ({viewerTitle, type}) => {
         return video
       }
     }))
-    console.log(videoList)
   }, [videoList])
 
   return (
