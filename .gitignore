@@ -26,5 +26,5 @@ yarn-error.log*
 *.mp4
 
 # .env file
-
+.env
 

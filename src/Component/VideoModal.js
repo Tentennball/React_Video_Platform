@@ -7,7 +7,6 @@ import {
   Button,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CheckIcon from "@mui/icons-material/Check";
 import ReactPlayer from "react-player";
 import { useSelector, useDispatch } from "react-redux";
@@ -170,12 +169,11 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
               </Button>
               <Button
                 variant="outlined"
-                startIcon={<BookmarkAddIcon />}
                 color="white"
                 sx={{ flexGrow: 1 }}
-                disabled={loggedInUserName === "Guest"}
+                onClick={handleClose}
               >
-                BookMark
+                닫기
               </Button>
             </Box>
           </Box>
