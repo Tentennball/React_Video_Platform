@@ -13,7 +13,7 @@ const VideoList = ({type}) => {
 
   useEffect(() => {
     getVideoList()
-  })
+  },[])
 
   const getVideoList = async() => {
     if (type === "MyPage") {

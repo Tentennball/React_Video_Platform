@@ -27,7 +27,7 @@ const VideoCard = ({videoData, handleLike, handleWatch}) => {
       justifyContent: "center",
       alignItems: "center",
       minWidth: "250px",
-      maxWidth: "300px",
+      maxWidth: "280px !important",
       aspectRatio: "16 / 9",
       /* Image Path */
       backgroundImage: `url(${videoData.thumbnailUrl})`,
