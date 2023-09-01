@@ -6,11 +6,15 @@ import {
   FormControl,
   Select,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import VideoList from './VideoList';
+import { getVideoListApi, getUserVideoListApi, handleLikeApi, handleWatchApi } from '../API/VideoAPI';
+import { useSelector } from "react-redux";
 
 const VideoListViewer = ({viewerTitle, type}) => {
   const [sortOption, setSortOption] = useState('');
+  const [videoList, setVideoList] = useState([]);
+  const userName = useSelector((state) => state.userName);
 
   const handleChange = (e) => {
     setSortOption(e.target.value);
@@ -19,6 +23,47 @@ const VideoListViewer = ({viewerTitle, type}) => {
   useEffect(() => {
     setSortOption("Recently");
   }, [])
+
+  useEffect(() => {
+    const getVideoList = async() => {
+      if (type === "MyPage") {
+        setVideoList(await getUserVideoListApi(userName, sortOption))
+      } else {
+        setVideoList(await getVideoListApi(sortOption))
+      }
+    }
+    if(sortOption){
+      getVideoList()      
+    }
+  }, [sortOption, type, userName])
+
+
+  const handleLike = useCallback(async(targetVideoId, type="Like") => {
+    // type == "Like"면 1, "Cancel"이면 -1, 둘다 이닌 경우 0
+    const adjustVal = (type === "Like")?1:((type === "Cancel")?-1:0);
+
+    const updateLike = await handleLikeApi(targetVideoId, adjustVal)
+
+    setVideoList(videoList.map((video) => {
+      if(video.id === targetVideoId){
+        return {...video, like: updateLike}
+      } else {
+        return video
+      }
+    }))
+  }, [videoList])
+
+  const handleWatch = useCallback(async(targetVideoId) => {
+    const updateWatch = await handleWatchApi(targetVideoId)
+    setVideoList(videoList.map((video) => {
+      if(video.id === targetVideoId){
+        return {...video, watch: updateWatch}
+      } else {
+        return video
+      }
+    }))
+    console.log(videoList)
+  }, [videoList])
 
   return (
     <Box sx={{paddingBottom: "100px"}}>
@@ -64,7 +109,7 @@ const VideoListViewer = ({viewerTitle, type}) => {
         </FormControl>
       </Box>
 
-      <VideoList type={type}></VideoList>
+      <VideoList type={type} videoList={videoList} handleLike={handleLike} handleWatch={handleWatch}></VideoList>
 
     </Box>
   );
