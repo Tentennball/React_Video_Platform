@@ -26,7 +26,6 @@ const VideoListViewer = ({viewerTitle, type}) => {
 
   useEffect(() => {
     const getVideoList = async() => {
-      console.log(userName)
       if (type === "MyPage") {
         setVideoList(await getUserVideoListApi(userName, sortOption))
       } else {
