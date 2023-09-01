@@ -1,5 +1,5 @@
 import { store } from "../firebase";
-import { doc, getDoc, getDocs, setDoc, updateDoc, where } from "firebase/firestore";
+import { doc, getDoc, getDocs, orderBy, setDoc, updateDoc, where } from "firebase/firestore";
 import { collection, query } from "firebase/firestore";
 
 // VideoUpload시 DB에 Video의 메타 데이터를 저장하는 API
@@ -12,9 +12,16 @@ export const uploadVideoDataApi = async (VideoData) => {
 
 
 // HomePage에서 VideoList를 받아오는 API
-export const getVideoListApi = async () => {
-  console.log("getVideoListApi")
-  return await getDocs(query(collection(store, "VideoList")))
+export const getVideoListApi = async (sortOption) => {
+
+  let sortKey = null
+  if(sortOption === "Recently"){
+    sortKey = "id"
+  } else if (sortOption === "Like")(
+    sortKey = "like"
+  )
+  
+  return await getDocs(query(collection(store, "VideoList"), orderBy(sortKey, "desc")))
     .then((snapShot) => {
       const videoList = [];
       snapShot.forEach((doc) => {
