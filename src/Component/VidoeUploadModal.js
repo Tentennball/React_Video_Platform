@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 
 const VideoUploadModal = (props) => {
   const [videoProgress, setVideoProgress] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [thumbProgress, setThumbProgress] = useState(0);
   const [videoFile, setVideoFile] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
