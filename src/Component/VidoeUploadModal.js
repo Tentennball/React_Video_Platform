@@ -5,6 +5,7 @@ import {
   Typography,
   Button,
   Input,
+  LinearProgress
 } from "@mui/material";
 import { useState } from "react";
 import { FileUpload } from "../API/FileUploadAPI";
@@ -219,20 +220,44 @@ const VideoUploadModal = (props) => {
               </Typography>
             </Box>
             
-            <Typography variant="h5" gutterBottom sx={{ color: "#FFFFFF" }}>
-              {isUploading ? videoProgress : null}
-            </Typography>
+
+            {isUploading && <Box sx={{ width: '100%' }}>
+              <LinearProgress variant="determinate" color="white" value={videoProgress} 
+              sx={{
+                "& > span" : {
+                  backgroundColor: "#1F1F1F"
+                },
+                marginBottom: "20px"
+              }}/>
+            </Box>}
+
+
+          
             {/* Upload Button */}
-            <Button
-              onClick={handleUpload}
-              variant="contained"
-              color="darkGray"
-              fullWidth
-              disabled={!(title && thumbnailFile && videoFile && !isUploading)}
-              sx={{ padding: "5px 0px" }}
-            >
-              Upload
-            </Button>
+            <Box sx={{display: "flex"}}>
+              <Button
+                onClick={handleUpload}
+                variant="contained"
+                color="darkGray"
+                fullWidth
+                disabled={!(title && thumbnailFile && videoFile && !isUploading)}
+                sx={{ padding: "5px 0px", marginRight: "5px" }}
+              >
+                Upload
+              </Button>
+
+              <Button
+                onClick={handleClose}
+                variant="contained"
+                color="darkGray"
+                fullWidth
+                disabled={isUploading}
+                sx={{ padding: "5px 0px", marginLeft: "5px" }}
+              >
+                Close
+              </Button>
+
+            </Box>
           </Box>
         </Box>
       </Container>
