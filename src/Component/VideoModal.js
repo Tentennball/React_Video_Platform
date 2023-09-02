@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CheckIcon from "@mui/icons-material/Check";
+import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 import ReactPlayer from "react-player";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
@@ -132,15 +134,6 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
                   <Typography variant="subtitle1">
                     Like : {videoData.like}
                   </Typography>
-                  <Button
-                    variant="outlined"
-                    color="white"
-                    sx={{ flexGrow: 1, ml: "5px"}}
-                    disabled={loggedInUserName !== videoData.uploader}
-                    onClick={deleteVideos}
-                  >
-                    삭제
-                  </Button>
                 </Box>
               </Box>
             </Box>
@@ -149,13 +142,22 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
             <Box
               sx={{
                 flexGrow: 1,
-                width: "220px",
+                width: "300px",
                 overflow: "hidden",
                 display: "flex",
                 margin: "10px",
-                ml:0
+                ml: 0
               }}
             >
+              {(loggedInUserName === videoData.uploader) && <Button
+                startIcon = {<DeleteIcon />}
+                variant="outlined"
+                color="white"
+                sx={{ overflow: "hidden", marginRight: "10px", flexGrow: 1 }}
+                onClick={deleteVideos}
+              >
+                Delete
+              </Button>}
               <Button
                 variant="outlined"
                 startIcon={isLiked ? <CheckIcon /> : <FavoriteIcon />}
@@ -168,6 +170,7 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
                 Like
               </Button>
               <Button
+                startIcon = {<CloseIcon />}
                 variant="outlined"
                 color="white"
                 sx={{ flexGrow: 1 }}

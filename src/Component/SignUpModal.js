@@ -17,8 +17,9 @@ const modalStyle = {
   width: "500px",
   height: "600px",
   transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
+  backgroundColor: "#585858",
   border: "2px solid #000",
+  borderRadius: "10px",
   boxShadow: 24,
   p: 4,
 };
@@ -80,7 +81,7 @@ const SignUpModal = ({ handleClose }) => {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography gutterBottom component="h1" variant="h5" sx={{ color: "#FFFFFF", marginBottom: "20px" }}>
             Sign up
           </Typography>
           <Box
@@ -98,6 +99,31 @@ const SignUpModal = ({ handleClose }) => {
                   label="Your Nickname"
                   name="name"
                   autoComplete="name"
+                  color="white"
+                  sx={{
+                    "& label": {
+                      color: "white !important",
+                    },
+                    "& input": {
+                      backgroundColor: "#585858 !important",
+                      color: "white !important",
+                      borderBottom: "3px solid white",
+                      "&:focus": {
+                        border: "none",
+                        borderBottom: "3px solid white"
+                      },
+                      "&:-webkit-autofill": {
+                        WebkitTextFillColor: '#fff',
+                        backgroundClip: "text",
+                      },
+                    },
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    borderColor: "white !important",
+                    color: "white !important",
+                    display: "block",
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -109,6 +135,31 @@ const SignUpModal = ({ handleClose }) => {
                   onChange={changeEmail}
                   name="email"
                   autoComplete="email"
+                  color="white"
+                  sx={{
+                    "& label": {
+                      color: "white !important",
+                    },
+                    "& input": {
+                      backgroundColor: "#585858 !important",
+                      color: "white !important",
+                      borderBottom: "3px solid white",
+                      "&:focus": {
+                        border: "none",
+                        borderBottom: "3px solid white"
+                      },
+                      "&:-webkit-autofill": {
+                        WebkitTextFillColor: '#fff',
+                        backgroundClip: "text",
+                      },
+                    },
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    borderColor: "white !important",
+                    color: "white !important",
+                    display: "block",
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -121,6 +172,32 @@ const SignUpModal = ({ handleClose }) => {
                   id="password"
                   autoComplete="new-password"
                   onChange={changePwd}
+                  color="white"
+                  sx={{
+                    "& label": {
+                      color: "white !important",
+                    },
+                    "& input": {
+                      backgroundColor: "#585858 !important",
+                      color: "white !important",
+                      borderBottom: "3px solid white",
+                      "&:focus": {
+                        border: "none",
+                        borderBottom: "3px solid white"
+                      },
+                      "&:-webkit-autofill": {
+                        WebkitTextFillColor: '#fff',
+                        backgroundClip: "text",
+                      },
+                    },
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    borderColor: "white !important",
+                    color: "white !important",
+                    display: "block",
+                    marginBottom: "20px"
+                  }}
                 />
               </Grid>
             </Grid>
@@ -128,7 +205,8 @@ const SignUpModal = ({ handleClose }) => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              color="darkGray"
+              sx={{ mt: 3, mb: 2, color:"#FFFFFF" }}
             >
               Sign Up
             </Button>
