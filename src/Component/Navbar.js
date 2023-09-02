@@ -17,7 +17,7 @@ import VideoUploadModal from "./VidoeUploadModal";
 import ElevationScroll from "./ElevationScroll";
 import { useSelector, useDispatch } from "react-redux";
 import { store } from "../firebase";
-import { doc, getDocs, getDoc, deleteDoc, where } from "firebase/firestore";
+import { doc, getDocs, getDoc, deleteDoc } from "firebase/firestore";
 import { collection, query } from "firebase/firestore";
 import { Link } from "react-router-dom";
 const Navbar = () => {

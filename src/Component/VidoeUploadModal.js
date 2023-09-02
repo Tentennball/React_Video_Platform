@@ -86,9 +86,9 @@ const VideoUploadModal = (props) => {
 
     setIsUploading(false);
 
-    alert("Upload Finish");
     props.handleClose();
     window.location.reload();
+    alert("Upload Finish");
   };
 
   return (
