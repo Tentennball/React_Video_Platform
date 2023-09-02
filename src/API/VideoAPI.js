@@ -9,7 +9,7 @@ import {
   where,
   deleteDoc,
 } from "firebase/firestore";
-import { collection, query } from "firebase/firestore";
+import { collection, query, } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 
 // VideoUpload시 DB에 Video의 메타 데이터를 저장하는 API
@@ -60,9 +60,14 @@ export const getVideoListApi = async (sortOption) => {
 };
 
 // Get User Video API
-export const getUserVideoListApi = async (userName) => {
+export const getUserVideoListApi = async (userName, sortOption) => {
+  let sortKey = null;
+  if (sortOption === "Recently") {
+    sortKey = "id";
+  } else if (sortOption === "Like") sortKey = "like";
+
   return await getDocs(
-    query(collection(store, "VideoList"), where("uploader", "==", userName))
+    query(collection(store, "VideoList"),  where("uploader", "==", userName), orderBy(sortKey, "desc"), )
   )
     .then((snapShot) => {
       const videoList = [];
