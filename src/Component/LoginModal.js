@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { collection, query, getDocs, setDoc, doc } from "firebase/firestore";
 import { store } from "../firebase";
-
 const modalStyle = {
   position: "absolute",
   top: "50%",
@@ -22,14 +21,16 @@ const modalStyle = {
   p: 4,
 };
 const LoginModal = ({ handleClose, setIsLoggedIn }) => {
-  const emailValid = (Email, querySnapshot) => {
-    querySnapshot.forEach(async (docs) => {
-      if (Email === docs.data().email) {
+
+  const emailValid = (Email, querySnapshot, setEmailVal) => {
+    for (let doc of querySnapshot.docs) {
+      if (Email === doc.data().email) {
         return true;
       }
-    });
+    }
     return false;
   };
+
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -47,12 +48,12 @@ const LoginModal = ({ handleClose, setIsLoggedIn }) => {
           handleClose();
           return;
         } else {
-          alert("일치하는 로그인 정보가 없습니다.");
+          alert("일치하는 암호 정보가 없습니다.");
           return;
         }
       });
     } else {
-      alert("일치하는 로그인 정가 없습니다.");
+      alert("일치하는 이메일 정보가 없습니다.");
     }
   };
   return (
