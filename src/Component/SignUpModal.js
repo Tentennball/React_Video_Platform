@@ -37,14 +37,13 @@ const SignUpModal = ({ handleClose }) => {
   const nameRegex = /^[\s!@#$%^&*(),.?":;`/'+=-_{}|<>]+$/;
 
   const changeName = (e) => {
-    console.log(isName);
     if (e.target.value.length > 0 && nameRegex.test(e.target.value)) {
       setNameMsg("올바른 닉네임을 작성하세요");
       setIsName(false);
       return;
     } else {
       setNameMsg("Your Nickname");
-      if (e.target.value.length > 0)setIsName(true);
+      if (e.target.value.length > 0) setIsName(true);
     }
   };
   const changeEmail = (e) => {
@@ -75,13 +74,15 @@ const SignUpModal = ({ handleClose }) => {
     const email = data.get("email");
     const password = data.get("password");
     const signUpData = await getDoc(doc(store, "Users", email));
-    if(signUpData.data().name===name){
-      alert("Type Other Name");
-      return;
-    }
-    if(signUpData.data()!==undefined){
-      alert("Already Existed Email");
-      return;
+    if (signUpData.data() !== undefined) {
+      if (signUpData.data().name === name) {
+        alert("Type Other Name");
+        return;
+      }
+      if (signUpData.data() !== undefined) {
+        alert("Already Existed Email");
+        return;
+      }
     }
     await setDoc(doc(store, "Users", email), {
       name: name,
@@ -136,7 +137,6 @@ const SignUpModal = ({ handleClose }) => {
                   autoComplete="name"
                   color="white"
                   sx={{
-                    
                     "& label": {
                       color: "white !important",
                     },
@@ -243,7 +243,7 @@ const SignUpModal = ({ handleClose }) => {
               variant="contained"
               color="darkGray"
               sx={{ mt: 3, mb: 2, color: "#FFFFFF" }}
-              disabled={!(isEmail&&isPwd&&isName)}
+              disabled={!(isEmail && isPwd && isName)}
             >
               Sign Up
             </Button>
