@@ -21,7 +21,6 @@ const VideoUploadModal = (props) => {
   const [isUploading, setIsUploading] = useState(false);
   const userName = useSelector((state) => state.userName);
   // Handler
-  console.log(thumbProgress);
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -85,10 +84,10 @@ const VideoUploadModal = (props) => {
     await uploadVideoDataApi(VideoData);
 
     setIsUploading(false);
-
+    
+    alert("Upload Finish");
     props.handleClose();
     window.location.reload();
-    alert("Upload Finish");
   };
 
   return (
