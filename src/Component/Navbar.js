@@ -103,7 +103,7 @@ const Navbar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
-              variant="h6"
+              variant="h4"
               noWrap
               component="a"
               href="/"
@@ -112,13 +112,12 @@ const Navbar = () => {
                 display: { xs: "none", md: "flex" },
                 fontFamily: "monospace",
                 fontWeight: 700,
-                letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
                 marginRight: "50px",
               }}
             >
-              LOGO
+              NetTube
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <Menu
