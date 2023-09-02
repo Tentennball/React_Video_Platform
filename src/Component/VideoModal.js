@@ -173,7 +173,7 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
                 sx={{ flexGrow: 1 }}
                 onClick={handleClose}
               >
-                닫기
+                Close
               </Button>
             </Box>
           </Box>
