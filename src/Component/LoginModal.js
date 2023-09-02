@@ -23,44 +23,50 @@ const modalStyle = {
   boxShadow: 24,
   p: 4,
 };
-const LoginModal = ({handleClose, setIsLoggedIn}) => {
-
-
+const LoginModal = ({ handleClose, setIsLoggedIn }) => {
+  const emailValid = (Email, querySnapshot) => {
+    querySnapshot.forEach(async (docs) => {
+      if (Email === docs.data().email) {
+        return true;
+      }
+    });
+    return false;
+  };
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    const q = query(collection(store, "Users"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async(docs) => {
-      if(email!==docs.data().email){
-        return;
-      }
-      else{
-        if(password===docs.data().password){
+    const userQuery = query(collection(store, "Users"));
+    const querySnapshot = await getDocs(userQuery);
+    if (emailValid(email, querySnapshot)) {
+      querySnapshot.forEach(async (docs) => {
+        if (password === docs.data().password) {
           await setDoc(doc(store, "session", docs.data().name), {});
           // SessionStorage(Local)에 사용자 이름 저장
-          sessionStorage.setItem("userName", docs.data().name)
+          sessionStorage.setItem("userName", docs.data().name);
           setIsLoggedIn(true);
-          handleClose();  
+          handleClose();
+          return;
+        } else {
+          alert("일치하는 로그인 정보가 없습니다.");
           return;
         }
-        else{
-          alert('일치하는 로그인 정보가 없습니다.');
-          return;
-        }
-      }
-    });
-  }
+      });
+    } else {
+      alert("일치하는 로그인 정가 없습니다.");
+    }
+  };
   return (
     <div>
-      <Modal
-        open={true}
-        onClose={handleClose}
-      >
+      <Modal open={true} onClose={handleClose}>
         <Container component="main" maxWidth="xs" sx={modalStyle}>
-          <Typography gutterBottom component="h1" variant="h5" sx={{color: "#FFFFFF", marginBottom: "20px"}}>
+          <Typography
+            gutterBottom
+            component="h1"
+            variant="h5"
+            sx={{ color: "#FFFFFF", marginBottom: "20px" }}
+          >
             Sign in
           </Typography>
           <Box
@@ -80,8 +86,8 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
               autoFocus
               color="white"
               sx={{
-                "& label" : {
-                  color: "white !important",  
+                "& label": {
+                  color: "white !important",
                 },
                 "& input" : {
                   backgroundColor: "#585858 !important",
@@ -96,8 +102,8 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
                     backgroundClip: "text",
                   },
                 },
-                "& fieldset" : {
-                  border: "none",  
+                "& fieldset": {
+                  border: "none",
                 },
                 borderColor: "white !important",
                 color: "white !important",
@@ -115,8 +121,8 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
               autoComplete="current-password"
               color="white"
               sx={{
-                "& label" : {
-                  color: "white !important",  
+                "& label": {
+                  color: "white !important",
                 },
                 "& input" : {
                   backgroundColor: "#585858 !important",
@@ -131,8 +137,8 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
                     backgroundClip: "text",
                   },
                 },
-                "& fieldset" : {
-                  border: "none",  
+                "& fieldset": {
+                  border: "none",
                 },
                 borderColor: "white !important",
                 color: "white !important",
@@ -144,7 +150,7 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
               fullWidth
               variant="contained"
               color="darkGray"
-              sx={{ mt: 3, mb: 2, color:"#FFFFFF" }}
+              sx={{ mt: 3, mb: 2, color: "#FFFFFF" }}
             >
               Sign In
             </Button>
