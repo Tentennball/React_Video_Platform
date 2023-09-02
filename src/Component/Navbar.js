@@ -17,7 +17,7 @@ import VideoUploadModal from "./VidoeUploadModal";
 import ElevationScroll from "./ElevationScroll";
 import { useSelector, useDispatch } from "react-redux";
 import { store } from "../firebase";
-import { doc, getDocs, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDocs, getDoc, deleteDoc, where } from "firebase/firestore";
 import { collection, query } from "firebase/firestore";
 import { Link } from "react-router-dom";
 const Navbar = () => {
@@ -50,6 +50,14 @@ const Navbar = () => {
     sessionStorage.removeItem("userName")
     setIsLoggedIn(false);
   }, [dispatch, userName]);
+
+  const withdraw = async() =>{
+    if (window.confirm("Are you Sure?")) {
+      await deleteDoc(doc(store, "Users", sessionStorage.getItem("userName")));
+      logOut();
+    }
+  }
+
   useEffect(() => {
     const checkSession = async () => {
       const sessionData = sessionStorage.getItem("userName")
@@ -196,6 +204,17 @@ const Navbar = () => {
                       }}
                     >
                       Logout
+                    </Button>
+                    <Button
+                      color="white"
+                      onClick={withdraw}
+                      sx={{
+                        color: "inherit",
+                        textTransform: "none", // 대문자 변경을 수정
+                        fontSize: "18px",
+                      }}
+                    >
+                      Withdraw
                     </Button>
                   </div>
                 </Tooltip>
