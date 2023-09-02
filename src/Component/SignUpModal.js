@@ -27,23 +27,44 @@ const modalStyle = {
 const SignUpModal = ({ handleClose }) => {
   const [emailMsg, setEmailMsg] = useState("Email Address");
   const [pwdMsg, setPwdMsg] = useState("Password");
+  const [nameMsg, setNameMsg] = useState("Your Nickname");
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPwd, setIsPwd] = useState(false);
+  const [isName, setIsName] = useState(false);
   const emailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+  const nameRegex = /^[\s!@#$%^&*(),.?":;`/'+=-_{}|<>]+$/;
+
+  const changeName = (e) => {
+    console.log(isName);
+    if (e.target.value.length > 0 && nameRegex.test(e.target.value)) {
+      setNameMsg("올바른 닉네임을 작성하세요");
+      setIsName(false);
+      return;
+    } else {
+      setNameMsg("Your Nickname");
+      if (e.target.value.length > 0)setIsName(true);
+    }
+  };
   const changeEmail = (e) => {
     if (e.target.value.length > 0 && !emailRegex.test(e.target.value)) {
       setEmailMsg("올바른 이메일 형식이 아닙니다");
+      setIsEmail(false);
       return;
     } else {
       setEmailMsg("Email Address");
+      if (e.target.value.length > 0) setIsEmail(true);
     }
   };
   const changePwd = (e) => {
     if (e.target.value.length > 0 && !passwordRegex.test(e.target.value)) {
       setPwdMsg("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.");
+      setIsPwd(false);
       return;
     } else {
       setPwdMsg("Password");
+      if (e.target.value.length > 0) setIsPwd(true);
     }
   };
 
@@ -53,7 +74,7 @@ const SignUpModal = ({ handleClose }) => {
     const name = data.get("name");
     const email = data.get("email");
     const password = data.get("password");
-
+    console.log(name);
     await setDoc(doc(store, "Users", email), {
       name: name,
       email: email,
@@ -80,7 +101,12 @@ const SignUpModal = ({ handleClose }) => {
             alignItems: "center",
           }}
         >
-          <Typography gutterBottom component="h1" variant="h5" sx={{ color: "#FFFFFF", marginBottom: "20px" }}>
+          <Typography
+            gutterBottom
+            component="h1"
+            variant="h5"
+            sx={{ color: "#FFFFFF", marginBottom: "20px" }}
+          >
             Sign up
           </Typography>
           <Box
@@ -92,10 +118,11 @@ const SignUpModal = ({ handleClose }) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  onChange={changeName}
                   required
                   fullWidth
                   id="name"
-                  label="Your Nickname"
+                  label={nameMsg}
                   name="name"
                   autoComplete="name"
                   color="white"
@@ -109,10 +136,10 @@ const SignUpModal = ({ handleClose }) => {
                       borderBottom: "3px solid white",
                       "&:focus": {
                         border: "none",
-                        borderBottom: "3px solid white"
+                        borderBottom: "3px solid white",
                       },
                       "&:-webkit-autofill": {
-                        WebkitTextFillColor: '#fff',
+                        WebkitTextFillColor: "#fff",
                         backgroundClip: "text",
                       },
                     },
@@ -145,10 +172,10 @@ const SignUpModal = ({ handleClose }) => {
                       borderBottom: "3px solid white",
                       "&:focus": {
                         border: "none",
-                        borderBottom: "3px solid white"
+                        borderBottom: "3px solid white",
                       },
                       "&:-webkit-autofill": {
-                        WebkitTextFillColor: '#fff',
+                        WebkitTextFillColor: "#fff",
                         backgroundClip: "text",
                       },
                     },
@@ -182,10 +209,10 @@ const SignUpModal = ({ handleClose }) => {
                       borderBottom: "3px solid white",
                       "&:focus": {
                         border: "none",
-                        borderBottom: "3px solid white"
+                        borderBottom: "3px solid white",
                       },
                       "&:-webkit-autofill": {
-                        WebkitTextFillColor: '#fff',
+                        WebkitTextFillColor: "#fff",
                         backgroundClip: "text",
                       },
                     },
@@ -195,7 +222,7 @@ const SignUpModal = ({ handleClose }) => {
                     borderColor: "white !important",
                     color: "white !important",
                     display: "block",
-                    marginBottom: "20px"
+                    marginBottom: "20px",
                   }}
                 />
               </Grid>
@@ -205,7 +232,8 @@ const SignUpModal = ({ handleClose }) => {
               fullWidth
               variant="contained"
               color="darkGray"
-              sx={{ mt: 3, mb: 2, color:"#FFFFFF" }}
+              sx={{ mt: 3, mb: 2, color: "#FFFFFF" }}
+              disabled={!(isEmail&&isPwd&&isName)}
             >
               Sign Up
             </Button>

@@ -6,7 +6,7 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { collection, query, getDoc, setDoc, doc } from "firebase/firestore";
+import { getDoc, setDoc, doc } from "firebase/firestore";
 import { store } from "../firebase";
 
 
