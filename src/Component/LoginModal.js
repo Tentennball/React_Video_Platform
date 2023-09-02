@@ -24,14 +24,15 @@ const modalStyle = {
   p: 4,
 };
 const LoginModal = ({ handleClose, setIsLoggedIn }) => {
-
- 
-
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
+    if(email.length===0||password.length===0){
+      alert("이메일, 비밀번호 공백x");
+      return;
+    }
     const loginData = await getDoc(doc(store, "Users", email));
     if (loginData.data()!==undefined) {
         if (password === loginData.data().password) {
