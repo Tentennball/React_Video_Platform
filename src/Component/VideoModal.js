@@ -122,12 +122,12 @@ const VideoModal = ({ handleClose, videoData, handleLike }) => {
                 }}
               >
                 {/* Uploader Name */}
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" sx={{width:"250px"}}>
                   {videoData.uploader}
                 </Typography>
 
                 {/* Watch & Like */}
-                <Box sx={{ display: "flex", opacity: 0.75 }}>
+                <Box component={"div"} sx={{ display: "flex", opacity: 0.75 }}>
                   <Typography variant="subtitle1" sx={{ marginRight: "20px" }}>
                     Watch : {videoData.watch}
                   </Typography>
