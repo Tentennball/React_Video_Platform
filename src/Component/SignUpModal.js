@@ -7,7 +7,7 @@ import {
   TextField,
   Grid,
 } from "@mui/material";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { store } from "../firebase";
 import { useState } from "react";
 const modalStyle = {
@@ -74,7 +74,15 @@ const SignUpModal = ({ handleClose }) => {
     const name = data.get("name");
     const email = data.get("email");
     const password = data.get("password");
-    console.log(name);
+    const signUpData = await getDoc(doc(store, "Users", email));
+    if(signUpData.data().name===name){
+      alert("Type Other Name");
+      return;
+    }
+    if(signUpData.data()!==undefined){
+      alert("Already Existed Email");
+      return;
+    }
     await setDoc(doc(store, "Users", email), {
       name: name,
       email: email,
