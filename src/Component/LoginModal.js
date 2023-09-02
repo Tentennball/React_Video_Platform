@@ -87,12 +87,17 @@ const LoginModal = ({ handleClose, setIsLoggedIn }) => {
                 "& label": {
                   color: "white !important",
                 },
-                "& input": {
-                  color: "white !important",
-                  borderBottom: "3px solid white",
-                  "&:focus": {
+                "& input" : {
+                  backgroundColor: "#585858 !important",
+                  color: "white !important", 
+                  borderBottom: "3px solid white",  
+                  "&:focus" : {
                     border: "none",
-                    borderBottom: "3px solid white",
+                    borderBottom: "3px solid white"
+                  },
+                  "&:-webkit-autofill": {
+                    '-webkit-text-fill-color': '#fff',
+                    backgroundClip: "text",
                   },
                 },
                 "& fieldset": {
@@ -117,12 +122,17 @@ const LoginModal = ({ handleClose, setIsLoggedIn }) => {
                 "& label": {
                   color: "white !important",
                 },
-                "& input": {
-                  color: "white !important",
-                  borderBottom: "3px solid white",
-                  "&:focus": {
+                "& input" : {
+                  backgroundColor: "#585858 !important",
+                  color: "white !important", 
+                  borderBottom: "3px solid white",  
+                  "&:focus" : {
                     border: "none",
-                    borderBottom: "3px solid white",
+                    borderBottom: "3px solid white"
+                  },
+                  "&:-webkit-autofill": {
+                    '-webkit-text-fill-color': '#fff',
+                    backgroundClip: "text",
                   },
                 },
                 "& fieldset": {
