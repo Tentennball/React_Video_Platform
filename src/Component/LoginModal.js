@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { collection, query, getDocs, setDoc, doc } from "firebase/firestore";
 import { store } from "../firebase";
+import { borderBottom } from "@mui/system";
 
 
 const modalStyle = {
@@ -17,7 +18,7 @@ const modalStyle = {
   width: "500px",
   height: "600px",
   transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
+  backgroundColor: "#585858",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -59,7 +60,7 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
         onClose={handleClose}
       >
         <Container component="main" maxWidth="xs" sx={modalStyle}>
-          <Typography component="h1" variant="h5">
+          <Typography gutterBottom component="h1" variant="h5" sx={{color: "#FFFFFF", marginBottom: "20px"}}>
             Sign in
           </Typography>
           <Box
@@ -77,6 +78,26 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
               name="email"
               autoComplete="email"
               autoFocus
+              color="white"
+              sx={{
+                "& label" : {
+                  color: "white !important",  
+                },
+                "& input" : {
+                  color: "white !important", 
+                  borderBottom: "3px solid white",  
+                  "&:focus" : {
+                    border: "none",
+                    borderBottom: "3px solid white"
+                  }
+                },
+                "& fieldset" : {
+                  border: "none",  
+                },
+                borderColor: "white !important",
+                color: "white !important",
+                display: "block",
+              }}
             />
             <TextField
               margin="normal"
@@ -87,12 +108,33 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
               type="password"
               id="password"
               autoComplete="current-password"
+              color="white"
+              sx={{
+                "& label" : {
+                  color: "white !important",  
+                },
+                "& input" : {
+                  color: "white !important", 
+                  borderBottom: "3px solid white",  
+                  "&:focus" : {
+                    border: "none",
+                    borderBottom: "3px solid white"
+                  }
+                },
+                "& fieldset" : {
+                  border: "none",  
+                },
+                borderColor: "white !important",
+                color: "white !important",
+                display: "block",
+              }}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              color="darkGray"
+              sx={{ mt: 3, mb: 2, color:"#FFFFFF" }}
             >
               Sign In
             </Button>
