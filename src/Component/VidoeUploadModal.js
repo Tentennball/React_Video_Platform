@@ -125,6 +125,7 @@ const VideoUploadModal = (props) => {
               color="white"
               onChange={handleTitleChange}
               disabled={isUploading}
+              placeholder="Input Title"
               sx={{
                 color: "white !important",
                 display: "block",

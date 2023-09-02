@@ -128,6 +128,7 @@ const SignUpModal = ({ handleClose }) => {
                 <TextField
                   onChange={changeName}
                   required
+                  autoFocus
                   fullWidth
                   id="name"
                   label={nameMsg}
@@ -135,13 +136,14 @@ const SignUpModal = ({ handleClose }) => {
                   autoComplete="name"
                   color="white"
                   sx={{
+                    
                     "& label": {
                       color: "white !important",
                     },
                     "& input": {
                       backgroundColor: "#585858 !important",
                       color: "white !important",
-                      borderBottom: "3px solid white",
+                      borderBottom: "2px solid white",
                       "&:focus": {
                         border: "none",
                         borderBottom: "3px solid white",
