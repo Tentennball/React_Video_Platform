@@ -109,8 +109,9 @@ export const handleWatchApi = async (targetVideoId) => {
 };
 
 // likedVideoList Update
-export const likedVideoListUpdateApi = async (likedVideoList, userName) => {
-  await updateDoc(doc(store, "Users", userName), {
+export const likedVideoListUpdateApi = async (likedVideoList) => {
+  const userEmail = sessionStorage.getItem("userName")
+  await updateDoc(doc(store, "Users", userEmail), {
     likedVideoList: likedVideoList,
   }).catch((e) => {
     console.error(e);
