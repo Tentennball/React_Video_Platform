@@ -98,7 +98,7 @@ const LoginModal = ({ handleClose, setIsLoggedIn }) => {
                     borderBottom: "3px solid white"
                   },
                   "&:-webkit-autofill": {
-                    '-webkit-text-fill-color': '#fff',
+                    WebkitTextFillColor: '#fff',
                     backgroundClip: "text",
                   },
                 },
@@ -133,7 +133,7 @@ const LoginModal = ({ handleClose, setIsLoggedIn }) => {
                     borderBottom: "3px solid white"
                   },
                   "&:-webkit-autofill": {
-                    '-webkit-text-fill-color': '#fff',
+                    WebkitTextFillColor : '#fff',
                     backgroundClip: "text",
                   },
                 },
