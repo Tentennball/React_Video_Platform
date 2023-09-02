@@ -82,12 +82,17 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
                   color: "white !important",  
                 },
                 "& input" : {
+                  backgroundColor: "#585858 !important",
                   color: "white !important", 
                   borderBottom: "3px solid white",  
                   "&:focus" : {
                     border: "none",
                     borderBottom: "3px solid white"
-                  }
+                  },
+                  "&:-webkit-autofill": {
+                    '-webkit-text-fill-color': '#fff',
+                    backgroundClip: "text",
+                  },
                 },
                 "& fieldset" : {
                   border: "none",  
@@ -112,12 +117,17 @@ const LoginModal = ({handleClose, setIsLoggedIn}) => {
                   color: "white !important",  
                 },
                 "& input" : {
+                  backgroundColor: "#585858 !important",
                   color: "white !important", 
                   borderBottom: "3px solid white",  
                   "&:focus" : {
                     border: "none",
                     borderBottom: "3px solid white"
-                  }
+                  },
+                  "&:-webkit-autofill": {
+                    '-webkit-text-fill-color': '#fff',
+                    backgroundClip: "text",
+                  },
                 },
                 "& fieldset" : {
                   border: "none",  
