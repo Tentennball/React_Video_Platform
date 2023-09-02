@@ -39,7 +39,6 @@ const SignUpModal = ({ handleClose }) => {
     }
   };
   const changePwd = (e) => {
-    console.log(e.target.value.length);
     if (e.target.value.length > 0 && !passwordRegex.test(e.target.value)) {
       setPwdMsg("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.");
       return;
@@ -55,7 +54,7 @@ const SignUpModal = ({ handleClose }) => {
     const email = data.get("email");
     const password = data.get("password");
 
-    await setDoc(doc(store, "Users", name), {
+    await setDoc(doc(store, "Users", email), {
       name: name,
       email: email,
       password: password,

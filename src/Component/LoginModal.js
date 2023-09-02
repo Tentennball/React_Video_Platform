@@ -6,7 +6,7 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { collection, query, getDocs, setDoc, doc } from "firebase/firestore";
+import { collection, query, getDoc, setDoc, doc } from "firebase/firestore";
 import { store } from "../firebase";
 
 
@@ -25,28 +25,19 @@ const modalStyle = {
 };
 const LoginModal = ({ handleClose, setIsLoggedIn }) => {
 
-  const emailValid = (Email, querySnapshot, setEmailVal) => {
-    for (let doc of querySnapshot.docs) {
-      if (Email === doc.data().email) {
-        return true;
-      }
-    }
-    return false;
-  };
+ 
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    const userQuery = query(collection(store, "Users"));
-    const querySnapshot = await getDocs(userQuery);
-    if (emailValid(email, querySnapshot)) {
-      querySnapshot.forEach(async (docs) => {
-        if (password === docs.data().password) {
-          await setDoc(doc(store, "session", docs.data().name), {});
+    const loginData = await getDoc(doc(store, "Users", email));
+    if (loginData.data()!==undefined) {
+        if (password === loginData.data().password) {
+          await setDoc(doc(store, "session", loginData.data().email), {});
           // SessionStorage(Local)에 사용자 이름 저장
-          sessionStorage.setItem("userName", docs.data().name);
+          sessionStorage.setItem("userName", loginData.data().email);
           setIsLoggedIn(true);
           handleClose();
           return;
@@ -54,7 +45,6 @@ const LoginModal = ({ handleClose, setIsLoggedIn }) => {
           alert("일치하는 로그인 정보가 없습니다.");
           return;
         }
-      });
     } else {
       alert("일치하는 로그인 정보가 없습니다.");
     }
