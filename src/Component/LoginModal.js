@@ -51,12 +51,12 @@ const LoginModal = ({ handleClose, setIsLoggedIn }) => {
           handleClose();
           return;
         } else {
-          alert("일치하는 암호 정보가 없습니다.");
+          alert("일치하는 로그인 정보가 없습니다.");
           return;
         }
       });
     } else {
-      alert("일치하는 이메일 정보가 없습니다.");
+      alert("일치하는 로그인 정보가 없습니다.");
     }
   };
   return (
