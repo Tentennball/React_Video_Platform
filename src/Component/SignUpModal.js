@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { setDoc, doc } from "firebase/firestore";
 import { store } from "../firebase";
-
+import { useState } from "react";
 const modalStyle = {
   position: "absolute",
   top: "50%",
@@ -23,13 +23,37 @@ const modalStyle = {
   p: 4,
 };
 
-const SignUpModal = ({handleClose}) => {
+const SignUpModal = ({ handleClose }) => {
+  const [emailMsg, setEmailMsg] = useState("Email Address");
+  const [pwdMsg, setPwdMsg] = useState("Password");
+  const emailRegex =
+    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+  const changeEmail = (e) => {
+    if (e.target.value.length > 0 && !emailRegex.test(e.target.value)) {
+      setEmailMsg("올바른 이메일 형식이 아닙니다");
+      return;
+    } else {
+      setEmailMsg("Email Address");
+    }
+  };
+  const changePwd = (e) => {
+    console.log(e.target.value.length);
+    if (e.target.value.length > 0 && !passwordRegex.test(e.target.value)) {
+      setPwdMsg("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.");
+      return;
+    } else {
+      setPwdMsg("Password");
+    }
+  };
+
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const name = data.get("name");
     const email = data.get("email");
     const password = data.get("password");
+
     await setDoc(doc(store, "Users", name), {
       name: name,
       email: email,
@@ -81,7 +105,8 @@ const SignUpModal = ({handleClose}) => {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label={emailMsg}
+                  onChange={changeEmail}
                   name="email"
                   autoComplete="email"
                 />
@@ -91,10 +116,11 @@ const SignUpModal = ({handleClose}) => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label={pwdMsg}
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={changePwd}
                 />
               </Grid>
             </Grid>
