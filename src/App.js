@@ -25,7 +25,7 @@ function reducer(currentState, action) {
     newState.likedVideoList = []
   }
   else if (action.type === 'SET_LIKED_VIDEO_LIST') {
-    likedVideoListUpdateApi(action.likedVideoList, newState.userName)
+    likedVideoListUpdateApi(action.likedVideoList)
     newState.likedVideoList = action.likedVideoList
   }
   return newState;
