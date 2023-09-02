@@ -9,6 +9,7 @@ import {
 import { collection, query, getDocs, setDoc, doc } from "firebase/firestore";
 import { store } from "../firebase";
 
+
 const modalStyle = {
   position: "absolute",
   top: "50%",
@@ -18,6 +19,7 @@ const modalStyle = {
   transform: "translate(-50%, -50%)",
   backgroundColor: "#585858",
   border: "2px solid #000",
+  borderRadius: "10px",
   boxShadow: 24,
   p: 4,
 };
